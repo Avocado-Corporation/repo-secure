@@ -18,11 +18,14 @@ jobs:
 
       - name: Install npm packages
         run: npm i
-
+  test:
+    needs: 'install'
+    runs-on: ubuntu-latest
+    steps:
       - name: Run Tests
         run: npm run lint
   deploy:
-    needs: 'install'
+    needs: 'test'
     runs-on: ubuntu-latest
     steps:
       - name: CDK Deploy
