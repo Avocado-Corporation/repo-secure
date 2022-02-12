@@ -6,10 +6,11 @@ on:
       - 'main'
 
 jobs:
-  install:
+  install-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: ⬇️ Checkout Repo
+        uses: actions/checkout@v2
 
       - name: Node Installer
         uses: actions/setup-node@v2
@@ -22,11 +23,15 @@ jobs:
     needs: 'install'
     runs-on: ubuntu-latest
     steps:
+      - name: ⬇️ Checkout Repo
+        uses: actions/checkout@v2
       - name: Run Tests
         run: npm run lint
   deploy:
     needs: 'test'
     runs-on: ubuntu-latest
     steps:
-      - name: CDK Deploy
+      - name: ⬇️ Checkout Repo
+        uses: actions/checkout@v2
+      - name: 🚀 CDK Deploy
         run: echo 'cdk deploy'
