@@ -6,7 +6,7 @@ on:
       - 'main'
 
 jobs:
-  install-deploy:
+  install:
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout Repo
