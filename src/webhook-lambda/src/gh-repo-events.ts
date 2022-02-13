@@ -24,7 +24,7 @@ const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
     const response = await gh.repos.updateBranchProtection({
       branch: body.repository.default_branch,
       owner: body.repository.owner.login,
-      repo: body.repository.name,
+      repo: body.repository.full_name,
       required_status_checks: null,
       enforce_admins: true,
       required_pull_request_reviews: {
@@ -36,7 +36,7 @@ const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
     });
     await gh.issues.create({
       owner: body.repository.owner.login,
-      repo: body.repository.name,
+      repo: body.repository.full_name,
       title: `Branch protections have been updated for '${body.repository.default_branch}' branch`,
       body:
           `Users will not be able to push directly to the ${body.repository.default_branch} branch.\n`
