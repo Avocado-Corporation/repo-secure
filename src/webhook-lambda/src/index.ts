@@ -1,8 +1,8 @@
 /* eslint-disable import/no-import-module-exports */
 import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from 'aws-lambda';
 import { Webhooks } from '@octokit/webhooks';
-// eslint-disable-next-line import/no-unresolved
 import { RepositoryEvent } from '@octokit/webhooks-types';
+import RepoEvents from './gh-repo-events';
 
 exports.handler = async (event: APIGatewayProxyEventV2)
 : Promise<APIGatewayProxyResultV2> => {
@@ -17,6 +17,9 @@ exports.handler = async (event: APIGatewayProxyEventV2)
   const ghEvent = event.headers['X-GitHub-Event'] as string;
   const body = JSON.parse(event.body as any) as RepositoryEvent;
   console.log(`verified -> ${verified} event-> ${ghEvent}`);
+  if (ghEvent === 'repository') {
+    RepoEvents(body);
+  }
   // ...
   return { body: body.action, statusCode: 200 };
 };
