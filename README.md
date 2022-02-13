@@ -1,3 +1,7 @@
+[![CodeQL](https://github.com/Avocado-Corporation/repo-secure/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Avocado-Corporation/repo-secure/actions/workflows/codeql-analysis.yml)
+
+[![Main Deploy](https://github.com/Avocado-Corporation/repo-secure/actions/workflows/deploy-main.yml/badge.svg?event=deployment_status)](https://github.com/Avocado-Corporation/repo-secure/actions/workflows/deploy-main.yml)
+
 # Repo-Secure
 
 This project allows for some basic Security Best practices when a repository is created on Github.
