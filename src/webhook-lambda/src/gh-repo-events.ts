@@ -3,39 +3,39 @@ import { RepositoryCreatedEvent, RepositoryEvent } from '@octokit/webhooks-types
 // import octokit from './gh-octokit';
 import { Octokit } from '@octokit/rest';
 import { createAppAuth } from '@octokit/auth-app';
+
 const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
   try {
     // return await octokit(body.installation?.id).then(async (OctoKit) => {
-    //   console.log(`Setting Branch Protections on : ${body.repository.name} \n 
+    //   console.log(`Setting Branch Protections on : ${body.repository.name} \n
     //                 on branch: ${body.repository.default_branch}\n
     //                 for organization: ${body.repository.owner.login}`);
-       const ghRepoSecurePK = Buffer.from((process.env?.GH_REPOSECURE_PK || '').replace(/\\n/g, '\n'), 'base64').toString();
-        console.log(`created a new OctoKit form installion id: ${body.installation?.id}`);
-        const gh = new Octokit({
-          authStrategy: createAppAuth,
-          auth: {
-            appId: process.env.GH_APP_ID,
-            privateKey: ghRepoSecurePK,
-            installationId: body.installation?.id,
-          },
-      
-        });
-      const response = await gh.repos.updateBranchProtection({
-        branch: body.repository.default_branch,
-        owner: body.repository.owner.login,
-        repo: body.repository.name,
-        required_status_checks: null,
-        enforce_admins: true,
-        required_pull_request_reviews: {
-          dismissal_restrictions: {},
-          dismiss_stale_reviews: true,
-          require_code_owner_reviews: true,
-        },
-        restrictions: null,
-      });
-      console.log(`Octokit Response on branch protection:\n ${JSON.stringify(response)}`);
-      return response;
+    const ghRepoSecurePK = Buffer.from((process.env?.GH_REPOSECURE_PK || '').replace(/\\n/g, '\n'), 'base64').toString();
+    console.log(`created a new OctoKit form installion id: ${body.installation?.id}`);
+    const gh = new Octokit({
+      authStrategy: createAppAuth,
+      auth: {
+        appId: process.env.GH_APP_ID,
+        privateKey: ghRepoSecurePK,
+        installationId: body.installation?.id,
+      },
+
     });
+    const response = await gh.repos.updateBranchProtection({
+      branch: body.repository.default_branch,
+      owner: body.repository.owner.login,
+      repo: body.repository.name,
+      required_status_checks: null,
+      enforce_admins: true,
+      required_pull_request_reviews: {
+        dismissal_restrictions: {},
+        dismiss_stale_reviews: true,
+        require_code_owner_reviews: true,
+      },
+      restrictions: null,
+    });
+    console.log(`Octokit Response on branch protection:\n ${JSON.stringify(response)}`);
+    return response;
   } catch (error: any) {
     console.log(`something went wrong setting branch protection on ${body.repository.name}\n Message:\n ${error}`);
     throw new Error(error);
