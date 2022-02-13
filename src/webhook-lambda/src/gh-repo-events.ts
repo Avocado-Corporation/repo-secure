@@ -34,6 +34,15 @@ const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
       },
       restrictions: null,
     });
+    await gh.issues.create({
+      owner: body.repository.owner.login,
+      repo: body.repository.name,
+      title: `Branch protections have been updated for '${body.repository.default_branch}' branch`,
+      body:
+          `Users will not be able to push directly to the ${body.repository.default_branch} branch.\n`
+          + `At least 1 review will be required to merge to ${body.repository.default_branch}\n`
+          + 'Administrators are asked to do the same but can override in necessary circumstances.\n ',
+    });
     console.log(`Octokit Response on branch protection:\n ${JSON.stringify(response)}`);
     return response;
   } catch (error: any) {
