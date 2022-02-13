@@ -17,9 +17,14 @@ exports.handler = async (event: APIGatewayProxyEventV2)
   const ghEvent = event.headers['X-GitHub-Event'] as string;
   const body = JSON.parse(event.body as any) as RepositoryEvent;
   console.log(`verified -> ${verified} event-> ${ghEvent}`);
-  if (ghEvent === 'repository') {
-    RepoEvents(body);
+  try {
+    if (ghEvent === 'repository') {
+      RepoEvents(body);
+      return { body: body.action, statusCode: 200 };
+    }
+  } catch (error:any) {
+    return { body: error, statusCode: 500 };
   }
+
   // ...
-  return { body: body.action, statusCode: 200 };
 };

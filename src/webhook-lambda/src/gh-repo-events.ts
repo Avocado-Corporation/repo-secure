@@ -20,18 +20,23 @@ const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
       });
     });
   } catch (error: any) {
+    console.log(`something went wrong setting branch protection on ${body.repository.name}\n Message:\n ${error}`);
     throw new Error(error);
   }
 };
 
 const repository = async (body:RepositoryEvent) => {
-  console.log(body);
-  switch (body.action) {
-    case 'created':
-      console.log(`new repo created: ${body.repository.name}`);
-      await setDefaultBranchProtections(body);
-      break;
-    default: console.log('not handled');
+  console.log(`in repository events working wiht: ${body}`);
+  try {
+    switch (body.action) {
+      case 'created':
+        console.log(`new repo created: ${body.repository.name}`);
+        await setDefaultBranchProtections(body);
+        break;
+      default: console.log('not handled');
+    }
+  } catch (error: any) {
+    throw new Error(error);
   }
 };
 
