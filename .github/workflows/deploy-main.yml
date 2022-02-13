@@ -67,7 +67,9 @@ jobs:
           GH_REPOSECURE_WEBHOOK: ${{secrets.GH_REPOSECURE_WEBHOOK}}
         run: |
           npm i -g aws-cdk
+          npm i -D @types/node typescript ts-node
           cd src 
+          npm i -D @types/node typescript ts-node
           npm i
           cd .. 
           cdk synth
