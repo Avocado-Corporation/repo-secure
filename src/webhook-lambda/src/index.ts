@@ -6,7 +6,7 @@ exports.handler = async (event: APIGatewayProxyEventV2)
 : Promise<APIGatewayProxyResultV2> => {
   // eslint-disable-next-line no-console
 
-  const verify = new Webhooks({
+  const verify = await new Webhooks({
     secret: process.env?.GH_REPOSECURE_WEBHOOK || '',
   }).verify(event.body as any, event.headers['x-hub-signature-256'] as string);
 
