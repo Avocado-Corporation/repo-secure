@@ -20,7 +20,6 @@
     "aws-lambda": "^1.0.7"
   },
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.92",
-    "eslint": "^8.9.0"
+    "@types/aws-lambda": "^8.10.92"
   }
 }
