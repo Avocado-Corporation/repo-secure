@@ -1,14 +1,26 @@
 //  set protections on main branch for new repo
 import { RepositoryCreatedEvent, RepositoryEvent } from '@octokit/webhooks-types';
-import octokit from './gh-octokit';
-
+// import octokit from './gh-octokit';
+import { Octokit } from '@octokit/rest';
+import { createAppAuth } from '@octokit/auth-app';
 const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
   try {
-    return await octokit(body.installation?.id).then(async (OctoKit) => {
-      console.log(`Setting Branch Protections on : ${body.repository.name} \n 
-                    on branch: ${body.repository.default_branch}\n
-                    for organization: ${body.repository.owner.login}`);
-      const response = await OctoKit.repos.updateBranchProtection({
+    // return await octokit(body.installation?.id).then(async (OctoKit) => {
+    //   console.log(`Setting Branch Protections on : ${body.repository.name} \n 
+    //                 on branch: ${body.repository.default_branch}\n
+    //                 for organization: ${body.repository.owner.login}`);
+       const ghRepoSecurePK = Buffer.from((process.env?.GH_REPOSECURE_PK || '').replace(/\\n/g, '\n'), 'base64').toString();
+        console.log(`created a new OctoKit form installion id: ${body.installation?.id}`);
+        const gh = new Octokit({
+          authStrategy: createAppAuth,
+          auth: {
+            appId: process.env.GH_APP_ID,
+            privateKey: ghRepoSecurePK,
+            installationId: body.installation?.id,
+          },
+      
+        });
+      const response = await gh.repos.updateBranchProtection({
         branch: body.repository.default_branch,
         owner: body.repository.owner.login,
         repo: body.repository.name,
