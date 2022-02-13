@@ -34,10 +34,13 @@ jobs:
 
       - name: Install npm packages
         uses: bahmutov/npm-install@v1
+        with:
+          working-directory: |
+            src
             
       - name: Run Tests
         run: npm run lint
-
+        
   deploy:
     needs: 'test'
     runs-on: ubuntu-latest
