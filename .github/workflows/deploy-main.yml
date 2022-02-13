@@ -26,6 +26,15 @@ jobs:
     steps:
       - name: ⬇️ Checkout Repo
         uses: actions/checkout@v2
+      
+      - name: Node Installer
+        uses: actions/setup-node@v2
+        with:
+            node-version: '14'
+            
+      - name: Install npm packages
+        uses: bahmutov/npm-install@v1
+        
       - name: Run Tests
         run: npm run lint
   deploy:
