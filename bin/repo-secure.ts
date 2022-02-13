@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { RepoSecureStack } from '../cdk/lib/repo-secure-stack';
+import RepoSecureStack from '../cdk/lib/repo-secure-stack';
 
 const app = new cdk.App();
 new RepoSecureStack(app, 'RepoSecureStack', {
