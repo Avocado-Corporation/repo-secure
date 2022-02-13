@@ -10,7 +10,7 @@ const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
     //   console.log(`Setting Branch Protections on : ${body.repository.name} \n
     //                 on branch: ${body.repository.default_branch}\n
     //                 for organization: ${body.repository.owner.login}`);
-    const ghRepoSecurePK = Buffer.from((process.env?.GH_REPOSECURE_PK || '').replace(/\\n/g, '\n'), 'base64').toString();
+    const ghRepoSecurePK = Buffer.from(process.env?.GH_REPOSECURE_PK || '', 'base64').toString();
     console.log(`created a new OctoKit form installion id: ${body.installation?.id}`);
     const gh = new Octokit({
       authStrategy: createAppAuth,
