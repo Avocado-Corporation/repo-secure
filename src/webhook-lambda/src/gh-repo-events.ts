@@ -4,8 +4,11 @@ import octokit from './gh-octokit';
 
 const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
   try {
-    return await octokit(body.installation?.id).then((OctoKit) => {
-      OctoKit.repos.updateBranchProtection({
+    return await octokit(body.installation?.id).then(async (OctoKit) => {
+      console.log(`Setting Branch Protections on : ${body.repository.name} \n 
+                    on branch: ${body.repository.default_branch}\n
+                    for organization: ${body.repository.owner.login}`);
+      const response = await OctoKit.repos.updateBranchProtection({
         branch: body.repository.default_branch,
         owner: body.repository.owner.login,
         repo: body.repository.name,
@@ -18,6 +21,8 @@ const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
         },
         restrictions: null,
       });
+      console.log(`Octokit Response on branch protection:\n ${JSON.stringify(response)}`);
+      return response;
     });
   } catch (error: any) {
     console.log(`something went wrong setting branch protection on ${body.repository.name}\n Message:\n ${error}`);
@@ -26,7 +31,7 @@ const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
 };
 
 const repository = async (body:RepositoryEvent) => {
-  console.log(`in repository events working wiht: ${body}`);
+  console.log(`in repository events working with: ${JSON.stringify(body)}`);
   try {
     switch (body.action) {
       case 'created':
