@@ -63,7 +63,8 @@ jobs:
           GH_REPOSECURE_WEBHOOK: ${{secrets.GH_REPOSECURE_WEBHOOK}}
         run: |
           npm i -g aws-cdk
-          cd src && npm i
+          cd src 
+          npm i
           cd .. 
           cdk synth
           cdk deploy --all --require-approval never
