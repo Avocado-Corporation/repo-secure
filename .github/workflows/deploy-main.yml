@@ -37,7 +37,7 @@ jobs:
         with:
           working-directory: |
             src
-            repo-secure
+            /
             
       - name: Run Tests
         run: npm run lint
