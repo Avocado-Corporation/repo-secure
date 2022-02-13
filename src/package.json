@@ -1,0 +1,25 @@
+{
+  "name": "repo-secure-webhook",
+  "version": "1.0.0",
+  "description": "Function to handle repo secure webhook events",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Avocado-Corporation/repo-secure.git"
+  },
+  "author": "Rudy Sarmiento",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Avocado-Corporation/repo-secure/issues"
+  },
+  "homepage": "https://github.com/Avocado-Corporation/repo-secure#readme",
+  "dependencies": {
+    "aws-lambda": "^1.0.7"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.92"
+  }
+}
