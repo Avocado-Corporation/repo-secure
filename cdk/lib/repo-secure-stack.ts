@@ -23,7 +23,7 @@ export default class RepoSecureStack extends Stack {
     // eslint-disable-next-line no-unused-vars
     const test = new lambda.NodejsFunction(this, 'test', {
       memorySize: 1024,
-      entry: '././src/webhook-lambda/src/test.js',
+      entry: '././src/webhook-lambda/src/test.ts',
       environment: {
         GH_APP_ID: process.env?.GH_APP_ID || '',
         GH_REPOSECURE_WEBHOOK: process.env?.GH_REPOSECURE_WEBHOOK || '',

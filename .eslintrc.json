@@ -35,6 +35,7 @@
   "settings": {
     "import/resolver": {
       "typescript": {},
+      "javascript": {},
       "node": {
         "extensions": [".js", ".jsx", "*.ts", ".tsx", ".ts", ".d.ts"],
         "moduleDirectory": ["node_modules", "src/node_modules/", "src/"]
