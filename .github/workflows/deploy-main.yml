@@ -65,6 +65,8 @@ jobs:
           GH_APP_ID: ${{secrets.GH_APP_ID}}
           GH_REPOSECURE_PK: ${{secrets.GH_REPOSECURE_PK}}
           GH_REPOSECURE_WEBHOOK: ${{secrets.GH_REPOSECURE_WEBHOOK}}
+          CLIENT_ID: ${{secrets.CLIENT_ID}}
+          CLIENT_SECRET: ${{secrets.CLIENT_SECRET}}
         run: |
           npm i -g aws-cdk
           npm i -D @types/node typescript ts-node

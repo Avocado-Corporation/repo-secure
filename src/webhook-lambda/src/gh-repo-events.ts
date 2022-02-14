@@ -7,9 +7,9 @@ import { createAppAuth } from '@octokit/auth-app';
 const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
   try {
     // return await octokit(body.installation?.id).then(async (OctoKit) => {
-    //   console.log(`Setting Branch Protections on : ${body.repository.name} \n
-    //                 on branch: ${body.repository.default_branch}\n
-    //                 for organization: ${body.repository.owner.login}`);
+    console.log(`Setting Branch Protections on : ${body.repository.name} \n
+                    on branch: ${body.repository.default_branch}\n
+                    for organization: ${body.repository.owner.login}`);
     const ghRepoSecurePK = Buffer.from(process.env?.GH_REPOSECURE_PK || '', 'base64').toString();
     console.log(`created a new OctoKit form installion id: ${body.installation?.id}`);
     const gh = new Octokit({
@@ -18,13 +18,15 @@ const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
         appId: process.env.GH_APP_ID,
         privateKey: ghRepoSecurePK,
         installationId: body.installation?.id,
+        clientId: process.env.CLIENT_ID,
+        clientSecret: process.env.CLIENT_SECRET,
       },
 
     });
     const response = await gh.repos.updateBranchProtection({
       branch: body.repository.default_branch,
       owner: body.repository.owner.login,
-      repo: body.repository.full_name,
+      repo: body.repository.name,
       required_status_checks: null,
       enforce_admins: true,
       required_pull_request_reviews: {
