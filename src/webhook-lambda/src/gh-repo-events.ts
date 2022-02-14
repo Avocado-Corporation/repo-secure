@@ -2,7 +2,7 @@
 import { RepositoryCreatedEvent, RepositoryEvent } from '@octokit/webhooks-types';
 // import octokit from './gh-octokit';
 import { Octokit } from '@octokit/rest';
-import { createAppAuth, Authentication, StrategyOptions } from '@octokit/auth-app';
+import { createAppAuth, StrategyOptions } from '@octokit/auth-app';
 
 const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
   try {
