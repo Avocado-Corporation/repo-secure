@@ -20,6 +20,19 @@ export default class RepoSecureStack extends Stack {
       },
 
     });
+    // eslint-disable-next-line no-unused-vars
+    const test = new lambda.NodejsFunction(this, 'test', {
+      memorySize: 1024,
+      entry: '././src/webhook-lambda/src/test.js',
+      environment: {
+        GH_APP_ID: process.env?.GH_APP_ID || '',
+        GH_REPOSECURE_WEBHOOK: process.env?.GH_REPOSECURE_WEBHOOK || '',
+        GH_REPOSECURE_PK: process.env?.GH_REPOSECURE_PK || '',
+        CLIENT_ID: process.env?.CLIENT_ID || '',
+        CLIENT_SECRET: process.env?.CLIENT_SECRET || '',
+      },
+
+    });
 
     // eslint-disable-next-line no-unused-vars
     const apiWebhook = new api.RestApi(this, 'github-app-webhook-api', {
