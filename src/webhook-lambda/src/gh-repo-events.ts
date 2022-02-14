@@ -12,18 +12,29 @@ const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
                     for organization: ${body.repository.owner.login}`);
     const ghRepoSecurePK = Buffer.from(process.env?.GH_REPOSECURE_PK || '', 'base64').toString();
     console.log(`created a new OctoKit form installion id: ${body.installation?.id}`);
-    const authOptions: StrategyOptions = {
-      appId: process.env.GH_APP_ID || '',
-      privateKey: ghRepoSecurePK,
-      installationId: body.installation?.id,
-      clientId: process.env.CLIENT_ID,
-      clientSecret: process.env.CLIENT_SECRET,
-      type: 'installation',
-    };
-    const auth = await createAppAuth(authOptions)({ type: 'installation' });
+    // const authOptions: StrategyOptions = {
+    //   appId: process.env.GH_APP_ID || '',
+    //   privateKey: ghRepoSecurePK,
+    //   installationId: body.installation?.id,
+    //   clientId: process.env.CLIENT_ID,
+    //   clientSecret: process.env.CLIENT_SECRET,
+    //   type: 'installation',
+    // };
+    // const auth = await createAppAuth(authOptions)({ type: 'installation' });
     const gh = new Octokit({
-      auth: auth.token,
+      authStrategy: createAppAuth,
+      auth: {
+        appId: process.env.GH_APP_ID || '',
+        privateKey: ghRepoSecurePK,
+        installationId: body.installation?.id,
+      },
     });
+    const testResp = await gh.request('POST /repos/{owner}/{repo}/issues', {
+      owner: body.repository.owner.login,
+      repo: body.repository.name,
+      title: 'title',
+    });
+    console.log('TEST', JSON.stringify(testResp));
 
     const response = await gh.repos.updateBranchProtection({
       branch: body.repository.default_branch,
