@@ -4,8 +4,9 @@ import { Webhooks } from '@octokit/webhooks';
 import { RepositoryEvent } from '@octokit/webhooks-types';
 import RepoEvents from './gh-repo-events';
 
-exports.handler = async (event: APIGatewayProxyEventV2)
-: Promise<APIGatewayProxyResultV2> => {
+exports.handler = async (
+  event: APIGatewayProxyEventV2,
+): Promise<APIGatewayProxyResultV2> => {
   // eslint-disable-next-line no-console
   console.log('My Events', event);
   const verified = await new Webhooks({
@@ -20,9 +21,9 @@ exports.handler = async (event: APIGatewayProxyEventV2)
   let result = { body: body.action, statusCode: 200 };
   try {
     if (ghEvent === 'repository') {
-      RepoEvents(body);
+      await RepoEvents(body);
     }
-  } catch (error:any) {
+  } catch (error: any) {
     console.log('Error ', error);
     result = { body: error, statusCode: 500 };
   }

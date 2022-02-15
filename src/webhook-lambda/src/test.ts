@@ -10,9 +10,9 @@ exports.handler = async (event) => {
   const appOctokit = new Octokit({
     authStrategy: createAppAuth,
     auth: {
-      appId: 171967,
+      appId: 172364,
       privateKey: PK,
-      installationId: 23218238,
+      installationId: 23269416,
     },
   });
 
@@ -29,6 +29,5 @@ exports.handler = async (event) => {
     },
     restrictions: null,
   });
-
   return response;
 };

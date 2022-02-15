@@ -20,7 +20,7 @@ const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
     const gh = new Octokit({
       authStrategy: createAppAuth,
       auth: {
-        appId: parseInt(process.env?.GH_APP_ID || '', 10),
+        appId: process.env?.GH_APP_ID || '',
         privateKey: ghRepoSecurePK,
         installationId: body.installation?.id,
       },
@@ -66,7 +66,7 @@ const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
   }
 };
 
-const repository = async (body: RepositoryEvent) => {
+const RepoEvents = async (body: RepositoryEvent) => {
   console.log(`in repository events working with: ${JSON.stringify(body)}`);
   try {
     switch (body.action) {
@@ -82,4 +82,4 @@ const repository = async (body: RepositoryEvent) => {
   }
 };
 
-export default repository;
+export default RepoEvents;
