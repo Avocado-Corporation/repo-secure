@@ -7,8 +7,9 @@ import octokit from './gh-octokit';
 
 const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
   try {
-    const gh = await octokit(body.installation?.id);
-    console.log(`Setting Branch Protections on : ${body.repository.name} \n
+    const gh = octokit(body.installation?.id);
+    console.log(`Setting Branch Protections on : \n
+        ${body.repository.name} \n
         on branch: ${body.repository.default_branch}\n
         for organization: ${body.repository.owner.login}`);
 

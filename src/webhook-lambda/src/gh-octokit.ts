@@ -1,7 +1,7 @@
 import { Octokit } from '@octokit/rest';
 import { createAppAuth } from '@octokit/auth-app';
 
-const octokit = async (installationId: any): Promise<Octokit> => {
+const octokit = (installationId: any): Octokit => {
   const ghRepoSecurePK = Buffer.from(
     process.env?.GH_REPOSECURE_PK || '',
     'base64',
