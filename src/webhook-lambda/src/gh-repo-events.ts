@@ -20,7 +20,7 @@ const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
     const gh = new Octokit({
       authStrategy: createAppAuth,
       auth: {
-        appId: process.env.GH_APP_ID,
+        appId: parseInt(process.env?.GH_APP_ID || '', 10),
         privateKey: ghRepoSecurePK,
         installationId: body.installation?.id,
       },
