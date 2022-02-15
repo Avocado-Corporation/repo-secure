@@ -1,8 +1,11 @@
 import { Octokit } from '@octokit/rest';
 import { createAppAuth } from '@octokit/auth-app';
 
-const octokit = async (installationId: any):Promise<Octokit> => {
-  const ghRepoSecurePK = Buffer.from((process.env?.GH_REPOSECURE_PK || '').replace(/\\n/g, '\n'), 'base64').toString();
+const octokit = async (installationId: any): Promise<Octokit> => {
+  const ghRepoSecurePK = Buffer.from(
+    process.env?.GH_REPOSECURE_PK || '',
+    'base64',
+  ).toString();
   console.log(`created a new OctoKit form installion id: ${installationId}`);
   return new Octokit({
     authStrategy: createAppAuth,
@@ -11,7 +14,6 @@ const octokit = async (installationId: any):Promise<Octokit> => {
       privateKey: ghRepoSecurePK,
       installationId,
     },
-
   });
 };
 
