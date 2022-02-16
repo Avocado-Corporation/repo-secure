@@ -42,10 +42,12 @@ const addSecurity = async (owner: string, repo: string) => {
     auth: process.env.REPO_SECURE_PAT,
     previews: ['london-preview'],
   });
-  octokit.rest.repos.enableAutomatedSecurityFixes({
-    owner,
-    repo,
-  });
+  const addSecurityResponse =
+    await octokit.rest.repos.enableAutomatedSecurityFixes({
+      owner,
+      repo,
+    });
+  console.log(`Add Security Response: ${addSecurityResponse}`);
 };
 
 const addVulnerabilityAlerts = async (owner: string, repo: string) => {
@@ -53,10 +55,11 @@ const addVulnerabilityAlerts = async (owner: string, repo: string) => {
     auth: process.env.REPO_SECURE_PAT,
     previews: ['dorian-preview'],
   });
-  octokit.rest.repos.enableVulnerabilityAlerts({
+  const addAlertsResponse = await octokit.rest.repos.enableVulnerabilityAlerts({
     owner,
     repo,
   });
+  console.log(`Add Alerts Response: ${addAlertsResponse}`);
 };
 
 // eslint-disable-next-line object-curly-newline
