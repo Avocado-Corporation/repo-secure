@@ -1,5 +1,7 @@
 /* eslint-disable import/no-import-module-exports */
 import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from 'aws-lambda';
+import { Octokit } from '@octokit/rest';
+import { createAppAuth } from '@octokit/auth-app';
 import { Webhooks } from '@octokit/webhooks';
 import { RepositoryEvent } from '@octokit/webhooks-types';
 import RepoEvents from './gh-repo-events';
@@ -19,6 +21,21 @@ exports.handler = async (
   const body = JSON.parse(event.body as any) as RepositoryEvent;
   console.log(`verified -> ${verified} event-> ${ghEvent}`);
   let result = { body: body.action, statusCode: 200 };
+
+  const ghRepoSecurePK = Buffer.from(
+    process.env?.GH_REPOSECURE_PK || '',
+    'base64',
+  ).toString();
+
+  global.gh = new Octokit({
+    authStrategy: createAppAuth,
+    auth: {
+      appId: process.env?.GH_APP_ID || '',
+      privateKey: ghRepoSecurePK,
+      installationId: body.installation?.id,
+    },
+  });
+
   try {
     if (ghEvent === 'repository') {
       await RepoEvents(body);
