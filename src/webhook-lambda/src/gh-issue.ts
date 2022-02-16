@@ -22,13 +22,11 @@ type NewIssue = {
   owner: string;
   /** the name of the repo */
   repo: string;
-  label?: string;
 };
 
 const addIssue = async (issue: NewIssue) => {
   // eslint-disable-next-line no-undef
   await gh.issues.create({
-    label: issue?.label || '',
     owner: issue.owner,
     repo: issue.repo,
     title: issue.title,

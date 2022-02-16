@@ -51,11 +51,10 @@ const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
     );
     await addIssue({
       title: `Branch protections have been added to '${body.repository.default_branch}' branch`,
-      body:
-        `Contributors can issue a pull request to add to the ${body.repository.default_branch} branch.\n` +
-        `At least 1 reviewer will be required to merge contributions to the ${body.repository.default_branch} branch\n` +
-        'Administrators are asked to do the same but can override when necessary.\n ',
-      label: 'security',
+      body: `@${body.sender.login}\n
+        Contributors can issue a pull request to add to the ${body.repository.default_branch} branch.\n
+        At least 1 reviewer will be required to merge contributions to the ${body.repository.default_branch} branch\n
+        Administrators are asked to do the same but can override when necessary.\n `,
       owner: body.repository.owner.login,
       repo: body.repository.name,
     });
