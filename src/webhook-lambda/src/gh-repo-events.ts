@@ -6,6 +6,7 @@ import {
 import { Octokit } from '@octokit/rest';
 import { createAppAuth } from '@octokit/auth-app';
 import addIssue from './gh-issue';
+import { addSecurity, addVulnerabilityAlerts } from './gh-security-policy';
 
 const ghRepoSecurePK = Buffer.from(
   process.env?.GH_REPOSECURE_PK || '',
@@ -74,6 +75,11 @@ const RepoEvents = async (body: RepositoryEvent) => {
       case 'created':
         console.log(`new repo created: ${body.repository.name}`);
         await setDefaultBranchProtections(body);
+        await addSecurity(body.organization?.login || '', body.repository.name);
+        await addVulnerabilityAlerts(
+          body.organization?.login || '',
+          body.repository.name,
+        );
         break;
       default:
         console.log('not handled');
