@@ -3,28 +3,29 @@ import {
   RepositoryCreatedEvent,
   RepositoryEvent,
 } from '@octokit/webhooks-types';
-// import { Octokit } from '@octokit/rest';
-// import { createAppAuth } from '@octokit/auth-app';
-// import tools from './utils';
+import { Octokit } from '@octokit/rest';
+import { createAppAuth } from '@octokit/auth-app';
+import addIssue from './gh-issue';
 
-// const ghRepoSecurePK = Buffer.from(
-//   process.env?.GH_REPOSECURE_PK || '',
-//   'base64',
-// ).toString();
+const ghRepoSecurePK = Buffer.from(
+  process.env?.GH_REPOSECURE_PK || '',
+  'base64',
+).toString();
+
+const gh = new Octokit({
+  authStrategy: createAppAuth,
+  auth: {
+    appId: process.env?.GH_APP_ID || '',
+    privateKey: ghRepoSecurePK,
+    installationId: process.env.INSTALLATION_ID,
+  },
+});
 
 const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
   try {
     console.log(
       `creating a new OctoKit form installion id: ${body.installation?.id}`,
     );
-    // const gh = new Octokit({
-    //   authStrategy: createAppAuth,
-    //   auth: {
-    //     appId: process.env?.GH_APP_ID || '',
-    //     privateKey: ghRepoSecurePK,
-    //     installationId: body.installation?.id,
-    //   },
-    // });
 
     console.log(`Setting  Branch Protections on : \n
         ${body.repository.name} \n
@@ -48,7 +49,16 @@ const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
     console.log(
       `Octokit Response on branch protection:\n ${JSON.stringify(response)}`,
     );
-
+    await addIssue({
+      title: `Branch protections have been added to '${body.repository.default_branch}' branch`,
+      body:
+        `Contributors can issue a pull request to add to the ${body.repository.default_branch} branch.\n` +
+        `At least 1 reviewer will be required to merge contributions to the ${body.repository.default_branch} branch\n` +
+        'Administrators are asked to do the same but can override when necessary.\n ',
+      label: 'security',
+      owner: body.repository.owner.login,
+      repo: body.repository.name,
+    });
     return response;
   } catch (error: any) {
     console.log(

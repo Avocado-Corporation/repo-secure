@@ -17,8 +17,8 @@ export default class RepoSecureStack extends Stack {
         GH_REPOSECURE_PK: process.env?.GH_REPOSECURE_PK || '',
         CLIENT_ID: process.env?.CLIENT_ID || '',
         CLIENT_SECRET: process.env?.CLIENT_SECRET || '',
+        INSTALLATION_ID: process.env?.INSTALLATION_ID || '',
       },
-
     });
     // eslint-disable-next-line no-unused-vars
     const test = new lambda.NodejsFunction(this, 'test', {
@@ -31,7 +31,6 @@ export default class RepoSecureStack extends Stack {
         CLIENT_ID: process.env?.CLIENT_ID || '',
         CLIENT_SECRET: process.env?.CLIENT_SECRET || '',
       },
-
     });
 
     // eslint-disable-next-line no-unused-vars
@@ -42,6 +41,8 @@ export default class RepoSecureStack extends Stack {
       },
     });
 
-    apiWebhook.root.addResource('gh-webhook').addMethod('POST', new api.LambdaIntegration(githubWebhook));
+    apiWebhook.root
+      .addResource('gh-webhook')
+      .addMethod('POST', new api.LambdaIntegration(githubWebhook));
   }
 }
