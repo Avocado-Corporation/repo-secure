@@ -18,6 +18,7 @@ export default class RepoSecureStack extends Stack {
         CLIENT_ID: process.env?.CLIENT_ID || '',
         CLIENT_SECRET: process.env?.CLIENT_SECRET || '',
         INSTALLATION_ID: process.env?.INSTALLATION_ID || '',
+        REPO_SECURE_PAT: process.env.REPO_SECURE_PAT || '',
       },
     });
     // eslint-disable-next-line no-unused-vars

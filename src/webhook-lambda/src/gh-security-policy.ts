@@ -38,14 +38,22 @@ const addFile = (file: NewFile) => {
 };
 
 const addSecurity = async (owner: string, repo: string) => {
-  gh.rest.repos.enableAutomatedSecurityFixes({
+  const octokit = new Octokit({
+    auth: process.env.REPO_SECURE_PAT,
+    previews: ['london-preview'],
+  });
+  octokit.rest.repos.enableAutomatedSecurityFixes({
     owner,
     repo,
   });
 };
 
 const addVulnerabilityAlerts = async (owner: string, repo: string) => {
-  gh.rest.repos.enableVulnerabilityAlerts({
+  const octokit = new Octokit({
+    auth: process.env.REPO_SECURE_PAT,
+    previews: ['dorian-preview'],
+  });
+  octokit.rest.repos.enableVulnerabilityAlerts({
     owner,
     repo,
   });
