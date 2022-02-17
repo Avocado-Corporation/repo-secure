@@ -6,7 +6,12 @@ import {
 import { Octokit } from '@octokit/rest';
 import { createAppAuth } from '@octokit/auth-app';
 import addIssue from './gh-issue';
-import { addSecurity, addVulnerabilityAlerts } from './gh-security-policy';
+import {
+  addFile,
+  addSecurity,
+  addVulnerabilityAlerts,
+  getTemplate,
+} from './gh-security-policy';
 
 const ghRepoSecurePK = Buffer.from(
   process.env?.GH_REPOSECURE_PK || '',
@@ -21,6 +26,21 @@ const gh = new Octokit({
     installationId: process.env.INSTALLATION_ID,
   },
 });
+
+const initializeRepo = async (body: RepositoryCreatedEvent) => {
+  const content = await getTemplate(
+    body.organization?.login || '',
+    'repo-secure',
+    'README.md',
+  );
+  await addFile({
+    content,
+    message: 'Repo Secure initial commit',
+    owner: body.organization?.login || '',
+    path: '/',
+    repo: body.repository.name,
+  });
+};
 
 const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
   try {
@@ -74,12 +94,15 @@ const RepoEvents = async (body: RepositoryEvent) => {
     switch (body.action) {
       case 'created':
         console.log(`new repo created: ${body.repository.name}`);
+        await initializeRepo(body);
         await setDefaultBranchProtections(body);
-        await addSecurity(body.organization?.login || '', body.repository.name);
+        //this one must go first
         await addVulnerabilityAlerts(
           body.organization?.login || '',
           body.repository.name,
         );
+        await addSecurity(body.organization?.login || '', body.repository.name);
+
         break;
       default:
         console.log('not handled');

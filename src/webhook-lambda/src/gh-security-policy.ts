@@ -16,12 +16,15 @@ const gh = new Octokit({
   },
 });
 
-const getTemplate = (fileName: string) => {
-  gh.repos.getContent({
-    owner: '',
-    repo: '',
+const getTemplate = async (owner: string, repo: string, fileName: string) => {
+  const template = await gh.repos.getContent({
+    owner,
+    repo,
     path: `/docs/templates/${fileName}`,
   });
+  const { content = {} } = { ...template.data };
+  console.log('Template Received: ', content);
+  return template;
 };
 
 type NewFile = {
@@ -31,8 +34,8 @@ type NewFile = {
   message: string;
   content: any;
 };
-const addFile = (file: NewFile) => {
-  gh.repos.createOrUpdateFileContents({
+const addFile = async (file: NewFile) => {
+  await gh.repos.createOrUpdateFileContents({
     ...file,
   });
 };
