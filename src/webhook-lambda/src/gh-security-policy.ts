@@ -24,7 +24,7 @@ const getTemplate = async (owner: string, repo: string, fileName: string) => {
   });
   const { content = {} } = { ...template.data };
   console.log('Template Received: ', content);
-  return template;
+  return content;
 };
 
 type NewFile = {
