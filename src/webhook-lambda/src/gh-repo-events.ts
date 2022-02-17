@@ -7,11 +7,11 @@ import { Octokit } from '@octokit/rest';
 import { createAppAuth } from '@octokit/auth-app';
 import addIssue from './gh-issue';
 import {
-  addFile,
   addSecurity,
+  addSecurityPolicy,
   addVulnerabilityAlerts,
-  getTemplate,
 } from './gh-security-policy';
+import initializeRepo from './gh-initialize-repo';
 
 const ghRepoSecurePK = Buffer.from(
   process.env?.GH_REPOSECURE_PK || '',
@@ -26,21 +26,6 @@ const gh = new Octokit({
     installationId: process.env.INSTALLATION_ID,
   },
 });
-
-const initializeRepo = async (body: RepositoryCreatedEvent) => {
-  const content = await getTemplate(
-    body.organization?.login || '',
-    'repo-secure',
-    'README.md',
-  );
-  await addFile({
-    content: Buffer.from(content).toString('base64'),
-    message: 'Repo Secure initial commit',
-    owner: body.organization?.login || '',
-    path: 'README.md',
-    repo: body.repository.name,
-  });
-};
 
 const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
   try {
@@ -84,6 +69,13 @@ const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
     console.log(
       `something went wrong setting branch protection on ${body.repository.name}\n Message:\n ${error}`,
     );
+    await addIssue({
+      title: `Failed to add branch protections to '${body.repository.default_branch}' branch`,
+      body: `@${body.sender.login} @Avocado-Corporation/avocado-security \n 
+                New repo was created but failed to add branch protections. Please add. `,
+      owner: body.organization?.login || '',
+      repo: body.repository.name,
+    });
     throw new Error(error);
   }
 };
@@ -95,8 +87,9 @@ const RepoEvents = async (body: RepositoryEvent) => {
       case 'created':
         console.log(`new repo created: ${body.repository.name}`);
         await initializeRepo(body);
+        await addSecurityPolicy(body);
         await setDefaultBranchProtections(body);
-        //this one must go first
+        // this one must go first!
         await addVulnerabilityAlerts(
           body.organization?.login || '',
           body.repository.name,

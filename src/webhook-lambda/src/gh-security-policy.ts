@@ -1,56 +1,32 @@
 //  add a security policy to a new repo and best practices to repo
 import { Octokit } from '@octokit/rest';
-import { createAppAuth } from '@octokit/auth-app';
-
-const ghRepoSecurePK = Buffer.from(
-  process.env?.GH_REPOSECURE_PK || '',
-  'base64',
-).toString();
-
-const gh = new Octokit({
-  authStrategy: createAppAuth,
-  auth: {
-    appId: process.env?.GH_APP_ID || '',
-    privateKey: ghRepoSecurePK,
-    installationId: process.env.INSTALLATION_ID,
-  },
-});
-
-const getTemplate = async (owner: string, repo: string, fileName: string) => {
-  const template = await gh.repos.getContent({
-    owner,
-    repo,
-    path: `/docs/templates/${fileName}`,
-  });
-  const { content = {} } = { ...template.data };
-  console.log('Template Received: ', content);
-  return content;
-};
-
-type NewFile = {
-  owner: string;
-  repo: string;
-  path: string;
-  message: string;
-  content: any;
-};
-const addFile = async (file: NewFile) => {
-  await gh.repos.createOrUpdateFileContents({
-    ...file,
-  });
-};
+import { RepositoryCreatedEvent } from '@octokit/webhooks-types';
+import addIssue from './gh-issue';
+import { getTemplate, addFile } from './gh-repo-content';
 
 const addSecurity = async (owner: string, repo: string) => {
   const octokit = new Octokit({
     auth: process.env.REPO_SECURE_PAT,
     previews: ['london-preview'],
   });
-  const addSecurityResponse =
-    await octokit.rest.repos.enableAutomatedSecurityFixes({
+
+  try {
+    const addSecurityResponse =
+      await octokit.rest.repos.enableAutomatedSecurityFixes({
+        owner,
+        repo,
+      });
+    console.log(`Add Security Response: ${addSecurityResponse}`);
+  } catch (error) {
+    console.log(error);
+    await addIssue({
+      title: `Automated Security`,
+      body: `@Avocado-Corporation/avocado-security \n 
+              New repo was created but failed to add automated security fixes `,
       owner,
       repo,
     });
-  console.log(`Add Security Response: ${addSecurityResponse}`);
+  }
 };
 
 const addVulnerabilityAlerts = async (owner: string, repo: string) => {
@@ -58,12 +34,50 @@ const addVulnerabilityAlerts = async (owner: string, repo: string) => {
     auth: process.env.REPO_SECURE_PAT,
     previews: ['dorian-preview'],
   });
-  const addAlertsResponse = await octokit.rest.repos.enableVulnerabilityAlerts({
-    owner,
-    repo,
-  });
-  console.log(`Add Alerts Response: ${addAlertsResponse}`);
+  try {
+    const addAlertsResponse =
+      await octokit.rest.repos.enableVulnerabilityAlerts({
+        owner,
+        repo,
+      });
+
+    console.log(`Add Alerts Response: ${addAlertsResponse}`);
+  } catch (error) {
+    console.log(error);
+    await addIssue({
+      title: `Vulnerability Alerts`,
+      body: `@Avocado-Corporation/avocado-security \n 
+            New repo was created but failed to add vulnerability alrets `,
+      owner,
+      repo,
+    });
+  }
+};
+const addSecurityPolicy = async (body: RepositoryCreatedEvent) => {
+  const content = await getTemplate(
+    body.organization?.login || '',
+    'repo-secure',
+    'security.md',
+  );
+
+  try {
+    await addFile({
+      content: Buffer.from(content).toString('base64'),
+      message: 'Repo Secure initial commit',
+      owner: body.organization?.login || '',
+      path: 'security.md',
+      repo: body.repository.name,
+    });
+  } catch (error) {
+    await addIssue({
+      title: `Failed to add security polify`,
+      body: `@${body.sender.login} @Avocado-Corporation/avocado-security \n 
+          New repo was created without a security policy `,
+      owner: body.repository.owner.login,
+      repo: body.repository.name,
+    });
+    console.log('unable to add file: ', error);
+  }
 };
 
-// eslint-disable-next-line object-curly-newline
-export { addSecurity, addVulnerabilityAlerts, getTemplate, addFile };
+export { addSecurity, addVulnerabilityAlerts, addSecurityPolicy };

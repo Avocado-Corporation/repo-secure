@@ -7,7 +7,8 @@
     "airbnb-base",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
+    "prettier"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -16,6 +17,7 @@
   },
   "plugins": ["@typescript-eslint/eslint-plugin", "import"],
   "rules": {
+    "no-console": "off",
     "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-explicit-any": "off",
