@@ -34,10 +34,10 @@ const initializeRepo = async (body: RepositoryCreatedEvent) => {
     'README.md',
   );
   await addFile({
-    content,
+    content: Buffer.from(content).toString('base64'),
     message: 'Repo Secure initial commit',
     owner: body.organization?.login || '',
-    path: '/',
+    path: 'README.md',
     repo: body.repository.name,
   });
 };
