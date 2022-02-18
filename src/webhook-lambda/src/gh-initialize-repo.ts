@@ -32,7 +32,7 @@ const initializeRepo = async (body: RepositoryCreatedEvent) => {
     const content = await getTemplate(
       body.organization?.login || '',
       'repo-secure',
-      '.gitIgnore'
+      '.gitIgnore' //purposely spelled wrong  to show the issue created if it fails
     );
 
     await addFile({
@@ -46,7 +46,7 @@ const initializeRepo = async (body: RepositoryCreatedEvent) => {
     console.log('unable to add .gitignore file: ', error);
     await addIssue({
       title: `Missing .gitignore`,
-      body: `@${body.sender.login} @Avocado-Corporation/avocado-security \n 
+      body: `@${body.sender.login}\n @Avocado-Corporation/avocado-security \n 
                 New repo was created but failed to add .gitignore `,
       owner: body.organization?.login || '',
       repo: body.repository.name

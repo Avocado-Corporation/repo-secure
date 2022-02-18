@@ -71,7 +71,7 @@ const addSecurityPolicy = async (body: RepositoryCreatedEvent) => {
   } catch (error) {
     await addIssue({
       title: `Failed to add security polify`,
-      body: `@${body.sender.login} @Avocado-Corporation/avocado-security \n 
+      body: `@${body.sender.login}\n @Avocado-Corporation/avocado-security \n 
           New repo was created without a security policy `,
       owner: body.repository.owner.login,
       repo: body.repository.name
@@ -98,7 +98,7 @@ const addCodeOwners = async (body: RepositoryCreatedEvent) => {
   } catch (error) {
     await addIssue({
       title: `Failed to add CODEOWNERS`,
-      body: `@${body.sender.login} @Avocado-Corporation/avocado-security \n 
+      body: `@${body.sender.login}\n @Avocado-Corporation/avocado-security \n 
             New repo was created without a CODEOWNERS file `,
       owner: body.repository.owner.login,
       repo: body.repository.name
@@ -110,6 +110,6 @@ const addCodeOwners = async (body: RepositoryCreatedEvent) => {
 export {
   addSecurity,
   addVulnerabilityAlerts,
-  addSecurityPolicy,
-  addCodeOwners
+  addCodeOwners,
+  addSecurityPolicy
 };
