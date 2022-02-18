@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
     "target": "ES2018",
-    "module": "esnext",
+    "module": "CommonJS",
     "lib": ["es2018"],
     "declaration": true,
+    "esModuleInterop": true,
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -19,6 +20,11 @@
     "strictPropertyInitialization": false,
     "moduleResolution": "node",
     "typeRoots": ["./node_modules/@types"]
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
   },
   "exclude": ["cdk.out"]
 }
