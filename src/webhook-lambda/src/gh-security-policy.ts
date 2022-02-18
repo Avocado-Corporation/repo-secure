@@ -62,7 +62,7 @@ const addSecurityPolicy = async (body: RepositoryCreatedEvent) => {
 
   try {
     await addFile({
-      content: Buffer.from(content).toString('base64'),
+      content: content,
       message: 'Repo Secure initial commit',
       owner: body.organization?.login || '',
       path: 'security.md',
@@ -89,7 +89,7 @@ const addCodeOwners = async (body: RepositoryCreatedEvent) => {
 
   try {
     await addFile({
-      content: Buffer.from(content).toString('base64'),
+      content: content,
       message: 'Repo Secure added CODEOWNERS',
       owner: body.organization?.login || '',
       path: 'CODEOWNERS',
