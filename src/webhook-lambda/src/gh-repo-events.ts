@@ -77,7 +77,6 @@ const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
       owner: body.organization?.login || '',
       repo: body.repository.name
     });
-    throw new Error(error);
   }
 };
 
@@ -89,14 +88,14 @@ const RepoEvents = async (body: RepositoryEvent) => {
         console.log(`new repo created: ${body.repository.name}`);
         await initializeRepo(body);
         await addSecurityPolicy(body);
-        await addCodeOwners(body);
-        await setDefaultBranchProtections(body);
         // this one must go first!
         await addVulnerabilityAlerts(
           body.organization?.login || '',
           body.repository.name
         );
         await addSecurity(body.organization?.login || '', body.repository.name);
+        await addCodeOwners(body);
+        await setDefaultBranchProtections(body);
 
         break;
       default:

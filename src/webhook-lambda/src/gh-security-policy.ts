@@ -88,13 +88,14 @@ const addCodeOwners = async (body: RepositoryCreatedEvent) => {
   );
 
   try {
-    await addFile({
+    const codeowners = await addFile({
       content: content,
       message: 'Repo Secure added CODEOWNERS',
       owner: body.organization?.login || '',
       path: 'CODEOWNERS',
       repo: body.repository.name
     });
+    console.log('added codeowners', codeowners);
   } catch (error) {
     await addIssue({
       title: `Failed to add CODEOWNERS`,
