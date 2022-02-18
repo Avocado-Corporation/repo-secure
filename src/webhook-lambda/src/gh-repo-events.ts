@@ -1,7 +1,7 @@
 //  set protections on main branch for new repo
 import {
   RepositoryCreatedEvent,
-  RepositoryEvent,
+  RepositoryEvent
 } from '@octokit/webhooks-types';
 import { Octokit } from '@octokit/rest';
 import { createAppAuth } from '@octokit/auth-app';
@@ -10,13 +10,13 @@ import {
   addCodeOwners,
   addSecurity,
   addSecurityPolicy,
-  addVulnerabilityAlerts,
+  addVulnerabilityAlerts
 } from './gh-security-policy';
 import initializeRepo from './gh-initialize-repo';
 
 const ghRepoSecurePK = Buffer.from(
   process.env?.GH_REPOSECURE_PK || '',
-  'base64',
+  'base64'
 ).toString();
 
 const gh = new Octokit({
@@ -24,14 +24,14 @@ const gh = new Octokit({
   auth: {
     appId: process.env?.GH_APP_ID || '',
     privateKey: ghRepoSecurePK,
-    installationId: process.env.INSTALLATION_ID,
-  },
+    installationId: process.env.INSTALLATION_ID
+  }
 });
 
 const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
   try {
     console.log(
-      `creating a new OctoKit form installion id: ${body.installation?.id}`,
+      `creating a new OctoKit form installion id: ${body.installation?.id}`
     );
 
     console.log(`Setting  Branch Protections on : \n
@@ -49,12 +49,12 @@ const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
       required_pull_request_reviews: {
         dismissal_restrictions: {},
         dismiss_stale_reviews: true,
-        require_code_owner_reviews: true,
+        require_code_owner_reviews: true
       },
-      restrictions: null,
+      restrictions: null
     });
     console.log(
-      `Octokit Response on branch protection:\n ${JSON.stringify(response)}`,
+      `Octokit Response on branch protection:\n ${JSON.stringify(response)}`
     );
     await addIssue({
       title: `Branch protections have been added to '${body.repository.default_branch}' branch`,
@@ -63,19 +63,19 @@ const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
         At least 1 reviewer will be required to merge contributions to the ${body.repository.default_branch} branch\n
         Administrators are asked to do the same but can override when necessary.\n `,
       owner: body.repository.owner.login,
-      repo: body.repository.name,
+      repo: body.repository.name
     });
     return response;
   } catch (error: any) {
     console.log(
-      `something went wrong setting branch protection on ${body.repository.name}\n Message:\n ${error}`,
+      `something went wrong setting branch protection on ${body.repository.name}\n Message:\n ${error}`
     );
     await addIssue({
       title: `Failed to add branch protections to '${body.repository.default_branch}' branch`,
       body: `@${body.sender.login} @Avocado-Corporation/avocado-security \n 
                 New repo was created but failed to add branch protections. Please add. `,
       owner: body.organization?.login || '',
-      repo: body.repository.name,
+      repo: body.repository.name
     });
     throw new Error(error);
   }
@@ -94,7 +94,7 @@ const RepoEvents = async (body: RepositoryEvent) => {
         // this one must go first!
         await addVulnerabilityAlerts(
           body.organization?.login || '',
-          body.repository.name,
+          body.repository.name
         );
         await addSecurity(body.organization?.login || '', body.repository.name);
 

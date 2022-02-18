@@ -15,14 +15,14 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint/eslint-plugin", "import"],
+  "plugins": ["@typescript-eslint/eslint-plugin", "import", "prettier"],
   "rules": {
+    "comma-dangle": ["error", "never"],
     "no-console": "off",
     "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "node/no-unpublished-import": "off",
-    "prettier/prettier": ["error", { "singleQuote": true }],
     "import/extensions": [
       "error",
       "ignorePackages",

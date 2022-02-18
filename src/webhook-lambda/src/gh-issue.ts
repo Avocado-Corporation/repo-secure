@@ -4,7 +4,7 @@ import { createAppAuth } from '@octokit/auth-app';
 
 const ghRepoSecurePK = Buffer.from(
   process.env?.GH_REPOSECURE_PK || '',
-  'base64',
+  'base64'
 ).toString();
 
 const gh = new Octokit({
@@ -12,8 +12,8 @@ const gh = new Octokit({
   auth: {
     appId: process.env?.GH_APP_ID || '',
     privateKey: ghRepoSecurePK,
-    installationId: process.env.INSTALLATION_ID,
-  },
+    installationId: process.env.INSTALLATION_ID
+  }
 });
 
 type NewIssue = {
@@ -30,7 +30,7 @@ const addIssue = async (issue: NewIssue) => {
     owner: issue.owner,
     repo: issue.repo,
     title: issue.title,
-    body: issue.body,
+    body: issue.body
   });
 };
 

@@ -7,14 +7,14 @@ import { getTemplate, addFile } from './gh-repo-content';
 const addSecurity = async (owner: string, repo: string) => {
   const octokit = new Octokit({
     auth: process.env.REPO_SECURE_PAT,
-    previews: ['london-preview'],
+    previews: ['london-preview']
   });
 
   try {
     const addSecurityResponse =
       await octokit.rest.repos.enableAutomatedSecurityFixes({
         owner,
-        repo,
+        repo
       });
     console.log(`Add Security Response: ${addSecurityResponse}`);
   } catch (error) {
@@ -24,7 +24,7 @@ const addSecurity = async (owner: string, repo: string) => {
       body: `@Avocado-Corporation/avocado-security \n 
               New repo was created but failed to add automated security fixes `,
       owner,
-      repo,
+      repo
     });
   }
 };
@@ -32,13 +32,13 @@ const addSecurity = async (owner: string, repo: string) => {
 const addVulnerabilityAlerts = async (owner: string, repo: string) => {
   const octokit = new Octokit({
     auth: process.env.REPO_SECURE_PAT,
-    previews: ['dorian-preview'],
+    previews: ['dorian-preview']
   });
   try {
     const addAlertsResponse =
       await octokit.rest.repos.enableVulnerabilityAlerts({
         owner,
-        repo,
+        repo
       });
 
     console.log(`Add Alerts Response: ${addAlertsResponse}`);
@@ -49,7 +49,7 @@ const addVulnerabilityAlerts = async (owner: string, repo: string) => {
       body: `@Avocado-Corporation/avocado-security \n 
             New repo was created but failed to add vulnerability alrets `,
       owner,
-      repo,
+      repo
     });
   }
 };
@@ -57,7 +57,7 @@ const addSecurityPolicy = async (body: RepositoryCreatedEvent) => {
   const content = await getTemplate(
     body.organization?.login || '',
     'repo-secure',
-    'security.md',
+    'security.md'
   );
 
   try {
@@ -66,7 +66,7 @@ const addSecurityPolicy = async (body: RepositoryCreatedEvent) => {
       message: 'Repo Secure initial commit',
       owner: body.organization?.login || '',
       path: 'security.md',
-      repo: body.repository.name,
+      repo: body.repository.name
     });
   } catch (error) {
     await addIssue({
@@ -74,7 +74,7 @@ const addSecurityPolicy = async (body: RepositoryCreatedEvent) => {
       body: `@${body.sender.login} @Avocado-Corporation/avocado-security \n 
           New repo was created without a security policy `,
       owner: body.repository.owner.login,
-      repo: body.repository.name,
+      repo: body.repository.name
     });
     console.log('unable to add file: ', error);
   }
@@ -84,7 +84,7 @@ const addCodeOwners = async (body: RepositoryCreatedEvent) => {
   const content = await getTemplate(
     body.organization?.login || '',
     'repo-secure',
-    'CODEOWNERS',
+    'CODEOWNERS'
   );
 
   try {
@@ -93,7 +93,7 @@ const addCodeOwners = async (body: RepositoryCreatedEvent) => {
       message: 'Repo Secure added CODEOWNERS',
       owner: body.organization?.login || '',
       path: 'CODEOWNERS',
-      repo: body.repository.name,
+      repo: body.repository.name
     });
   } catch (error) {
     await addIssue({
@@ -101,7 +101,7 @@ const addCodeOwners = async (body: RepositoryCreatedEvent) => {
       body: `@${body.sender.login} @Avocado-Corporation/avocado-security \n 
             New repo was created without a CODEOWNERS file `,
       owner: body.repository.owner.login,
-      repo: body.repository.name,
+      repo: body.repository.name
     });
     console.log('unable to add file: ', error);
   }
@@ -111,5 +111,5 @@ export {
   addSecurity,
   addVulnerabilityAlerts,
   addSecurityPolicy,
-  addCodeOwners,
+  addCodeOwners
 };

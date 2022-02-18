@@ -3,7 +3,7 @@ import { Octokit } from '@octokit/rest';
 
 const ghRepoSecurePK = Buffer.from(
   process.env?.GH_REPOSECURE_PK || '',
-  'base64',
+  'base64'
 ).toString();
 
 const gh = new Octokit({
@@ -11,15 +11,15 @@ const gh = new Octokit({
   auth: {
     appId: process.env?.GH_APP_ID || '',
     privateKey: ghRepoSecurePK,
-    installationId: process.env.INSTALLATION_ID,
-  },
+    installationId: process.env.INSTALLATION_ID
+  }
 });
 
 const getTemplate = async (owner: string, repo: string, fileName: string) => {
   const template = await gh.repos.getContent({
     owner,
     repo,
-    path: `/docs/templates/${fileName}`,
+    path: `/docs/templates/${fileName}`
   });
   const { content = {} } = { ...template.data };
   console.log('Template Received: ', content);
@@ -35,7 +35,7 @@ type NewFile = {
 };
 const addFile = async (file: NewFile) => {
   await gh.repos.createOrUpdateFileContents({
-    ...file,
+    ...file
   });
 };
 export { addFile, getTemplate };

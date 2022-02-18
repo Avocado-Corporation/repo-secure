@@ -8,14 +8,14 @@ const initializeRepo = async (body: RepositoryCreatedEvent) => {
     const content = await getTemplate(
       body.organization?.login || '',
       'repo-secure',
-      'README.md',
+      'README.md'
     );
     await addFile({
       content: Buffer.from(content).toString('base64'),
       message: 'Repo Secure initial commit',
       owner: body.organization?.login || '',
       path: 'README.md',
-      repo: body.repository.name,
+      repo: body.repository.name
     });
   } catch (error) {
     console.log('unable to add README file: ', error);
@@ -24,7 +24,7 @@ const initializeRepo = async (body: RepositoryCreatedEvent) => {
       body: `@${body.sender.login} @Avocado-Corporation/avocado-security \n 
                 New repo was created but failed to add README `,
       owner: body.organization?.login || '',
-      repo: body.repository.name,
+      repo: body.repository.name
     });
   }
   // add a basic .gitignore
@@ -32,7 +32,7 @@ const initializeRepo = async (body: RepositoryCreatedEvent) => {
     const content = await getTemplate(
       body.organization?.login || '',
       'repo-secure',
-      '.gitIgnore',
+      '.gitIgnore'
     );
 
     await addFile({
@@ -40,7 +40,7 @@ const initializeRepo = async (body: RepositoryCreatedEvent) => {
       message: 'Repo Secure initial commit',
       owner: body.organization?.login || '',
       path: '.gitIgnore',
-      repo: body.repository.name,
+      repo: body.repository.name
     });
   } catch (error) {
     console.log('unable to add .gitignore file: ', error);
@@ -49,7 +49,7 @@ const initializeRepo = async (body: RepositoryCreatedEvent) => {
       body: `@${body.sender.login} @Avocado-Corporation/avocado-security \n 
                 New repo was created but failed to add .gitignore `,
       owner: body.organization?.login || '',
-      repo: body.repository.name,
+      repo: body.repository.name
     });
   }
 };
