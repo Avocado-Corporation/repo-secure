@@ -25,6 +25,8 @@ type NewIssue = {
 };
 
 const addIssue = async (issue: NewIssue) => {
+  console.log(`Adding an issue for repo ${issue.repo} \n`);
+
   // eslint-disable-next-line no-undef
   await gh.issues.create({
     owner: issue.owner,

@@ -31,13 +31,11 @@ const gh = new Octokit({
 const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
   try {
     console.log(
-      `creating a new OctoKit form installion id: ${body.installation?.id}`
-    );
-
-    console.log(`Setting  Branch Protections on : \n
+      `Setting  Branch Protections on : \n
         ${body.repository.name} \n
         on branch: ${body.repository.default_branch}\n
-        for organization: ${body.repository.owner.login}`);
+        for organization: ${body.repository.owner.login}`
+    );
 
     // eslint-disable-next-line no-undef
     const response = await gh.repos.updateBranchProtection({
@@ -65,7 +63,6 @@ const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
       owner: body.repository.owner.login,
       repo: body.repository.name
     });
-    return response;
   } catch (error: any) {
     console.log(
       `something went wrong setting branch protection on ${body.repository.name}\n Message:\n ${error}`

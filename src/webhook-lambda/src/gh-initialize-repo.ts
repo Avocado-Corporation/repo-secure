@@ -5,11 +5,14 @@ import { getTemplate, addFile } from './gh-repo-content';
 const initializeRepo = async (body: RepositoryCreatedEvent) => {
   // add a Template README file
   try {
+    console.log('Initializing repo');
     const content = await getTemplate(
       body.organization?.login || '',
       'repo-secure',
       'README.md'
     );
+    console.log('call to add README');
+
     await addFile({
       content: content,
       message: 'Repo Secure initial commit',
@@ -17,6 +20,7 @@ const initializeRepo = async (body: RepositoryCreatedEvent) => {
       path: 'README.md',
       repo: body.repository.name
     });
+    console.log('added a README');
   } catch (error) {
     console.log('unable to add README file: ', error);
     await addIssue({

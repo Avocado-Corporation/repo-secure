@@ -11,12 +11,16 @@ const addSecurity = async (owner: string, repo: string) => {
   });
 
   try {
+    console.log('adding automated security fixes');
+
     const addSecurityResponse =
       await octokit.rest.repos.enableAutomatedSecurityFixes({
         owner,
         repo
       });
-    console.log(`Add Security Response: ${addSecurityResponse}`);
+    console.log(
+      `Add Security Response: ${JSON.stringify(addSecurityResponse)}`
+    );
   } catch (error) {
     console.log(error);
     await addIssue({
@@ -35,13 +39,14 @@ const addVulnerabilityAlerts = async (owner: string, repo: string) => {
     previews: ['dorian-preview']
   });
   try {
+    console.log('adding security alerts');
     const addAlertsResponse =
       await octokit.rest.repos.enableVulnerabilityAlerts({
         owner,
         repo
       });
 
-    console.log(`Add Alerts Response: ${addAlertsResponse}`);
+    console.log(`Add Alerts Response: ${JSON.stringify(addAlertsResponse)}`);
   } catch (error) {
     console.log(error);
     await addIssue({
@@ -68,6 +73,7 @@ const addSecurityPolicy = async (body: RepositoryCreatedEvent) => {
       path: 'security.md',
       repo: body.repository.name
     });
+    console.log('added security policy');
   } catch (error) {
     await addIssue({
       title: `Failed to add security polify`,
@@ -81,6 +87,8 @@ const addSecurityPolicy = async (body: RepositoryCreatedEvent) => {
 };
 
 const addCodeOwners = async (body: RepositoryCreatedEvent) => {
+  console.log('getting CODEOWNERS template');
+
   const content = await getTemplate(
     body.organization?.login || '',
     'repo-secure',

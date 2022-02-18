@@ -16,13 +16,15 @@ const gh = new Octokit({
 });
 
 const getTemplate = async (owner: string, repo: string, fileName: string) => {
+  console.log(`Getting template for: ${fileName}`);
+
   const template = await gh.repos.getContent({
     owner,
     repo,
     path: `/docs/templates/${fileName}`
   });
   const { content = {} } = { ...template.data };
-  console.log('Template Received: ', content);
+  console.log('Template Received: ', fileName);
   return content;
 };
 
