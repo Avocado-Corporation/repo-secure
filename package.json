@@ -4,6 +4,7 @@
   "bin": {
     "repo-secure": "bin/repo-secure.js"
   },
+  "type": "module",
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
