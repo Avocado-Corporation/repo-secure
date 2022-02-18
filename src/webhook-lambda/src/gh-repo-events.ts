@@ -84,15 +84,25 @@ const RepoEvents = async (body: RepositoryEvent) => {
       case 'created':
         console.log(`new repo created: ${body.repository.name}`);
         await initializeRepo(body);
+        console.log('Initialized Repo');
+
         await addSecurityPolicy(body);
+        console.log('Added a security policy');
+
+        await addCodeOwners(body);
+        console.log('Added codeowners file.');
         // this one must go first!
         await addVulnerabilityAlerts(
           body.organization?.login || '',
           body.repository.name
         );
+        console.log('Added vulnerability alerts');
+
         await addSecurity(body.organization?.login || '', body.repository.name);
-        await addCodeOwners(body);
+        console.log('Added automated security');
+
         await setDefaultBranchProtections(body);
+        console.log('Set branch protections');
 
         break;
       default:
