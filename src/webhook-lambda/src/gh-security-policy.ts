@@ -80,4 +80,36 @@ const addSecurityPolicy = async (body: RepositoryCreatedEvent) => {
   }
 };
 
-export { addSecurity, addVulnerabilityAlerts, addSecurityPolicy };
+const addCodeOwners = async (body: RepositoryCreatedEvent) => {
+  const content = await getTemplate(
+    body.organization?.login || '',
+    'repo-secure',
+    'CODEOWNERS',
+  );
+
+  try {
+    await addFile({
+      content: Buffer.from(content).toString('base64'),
+      message: 'Repo Secure added CODEOWNERS',
+      owner: body.organization?.login || '',
+      path: 'CODEOWNERS',
+      repo: body.repository.name,
+    });
+  } catch (error) {
+    await addIssue({
+      title: `Failed to add CODEOWNERS`,
+      body: `@${body.sender.login} @Avocado-Corporation/avocado-security \n 
+            New repo was created without a CODEOWNERS file `,
+      owner: body.repository.owner.login,
+      repo: body.repository.name,
+    });
+    console.log('unable to add file: ', error);
+  }
+};
+
+export {
+  addSecurity,
+  addVulnerabilityAlerts,
+  addSecurityPolicy,
+  addCodeOwners,
+};

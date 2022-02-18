@@ -7,6 +7,7 @@ import { Octokit } from '@octokit/rest';
 import { createAppAuth } from '@octokit/auth-app';
 import addIssue from './gh-issue';
 import {
+  addCodeOwners,
   addSecurity,
   addSecurityPolicy,
   addVulnerabilityAlerts,
@@ -88,6 +89,7 @@ const RepoEvents = async (body: RepositoryEvent) => {
         console.log(`new repo created: ${body.repository.name}`);
         await initializeRepo(body);
         await addSecurityPolicy(body);
+        await addCodeOwners(body);
         await setDefaultBranchProtections(body);
         // this one must go first!
         await addVulnerabilityAlerts(
