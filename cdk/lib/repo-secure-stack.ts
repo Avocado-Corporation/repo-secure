@@ -1,4 +1,4 @@
-import { Stack, StackProps } from 'aws-cdk-lib';
+import { Duration, Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as lambda from 'aws-cdk-lib/aws-lambda-nodejs';
 import * as api from 'aws-cdk-lib/aws-apigateway';
@@ -11,6 +11,7 @@ export default class RepoSecureStack extends Stack {
     const githubWebhook = new lambda.NodejsFunction(this, 'githubWebhook', {
       memorySize: 1024,
       entry: '././src/webhook-lambda/src/index.ts',
+      timeout: Duration.minutes(5),
       environment: {
         GH_APP_ID: process.env?.GH_APP_ID || '',
         GH_REPOSECURE_WEBHOOK: process.env?.GH_REPOSECURE_WEBHOOK || '',

@@ -36,8 +36,6 @@ const setDefaultBranchProtections = async (body: RepositoryCreatedEvent) => {
         on branch: ${body.repository.default_branch}\n
         for organization: ${body.repository.owner.login}`
     );
-
-    // eslint-disable-next-line no-undef
     const response = await gh.repos.updateBranchProtection({
       branch: body.repository?.default_branch,
       owner: body.repository.owner.login,
