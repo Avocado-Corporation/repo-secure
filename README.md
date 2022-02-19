@@ -43,7 +43,7 @@ This project allows for some basic Security Best practices when a repository is 
 * [node.js](https://nodejs.dev/)
 * [AWS](https://aws.amazon.com/)
 * [GitHub Apps](https://docs.github.com/en/developers/apps)
-* [AWS CDK] (https://aws.amazon.com/cdk/)
+* [AWS CDK](https://aws.amazon.com/cdk/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
