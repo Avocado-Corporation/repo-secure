@@ -62,7 +62,7 @@ const addSecurityPolicy = async (body: RepositoryCreatedEvent) => {
   const content = await getTemplate(
     body.organization?.login || '',
     'repo-secure',
-    'security.md'
+    'SECURITY.md'
   );
 
   try {
@@ -70,7 +70,7 @@ const addSecurityPolicy = async (body: RepositoryCreatedEvent) => {
       content: content,
       message: 'Repo Secure initial commit',
       owner: body.organization?.login || '',
-      path: 'security.md',
+      path: 'SECURITY.md',
       repo: body.repository.name
     });
     console.log('added security policy');
