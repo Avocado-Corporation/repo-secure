@@ -15,7 +15,7 @@
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="#environment-variables">Environment Variables</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
@@ -68,7 +68,7 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 - `cdk diff` compare deployed stack with current state
 - `cdk synth` emits the synthesized CloudFormation template
 
-
+<p align="right">(<a href="#top">back to top</a>)</p>
 ## Prerequisites
 
 ### GitHub App
@@ -117,7 +117,7 @@ They should be added in the following areas of the code:
  - [Deployment Pipeline](https://github.com/Avocado-Corporation/repo-secure/blob/main/.github/workflows/deploy-main.yml#L62) - Saved and read from [GitHub Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets)
   
  - [Infrastructure as Code (CDK)](https://github.com/Avocado-Corporation/repo-secure/blob/main/cdk/lib/repo-secure-stack.ts#L15) - Set as environment variables for the Lambda function(s).
-
+<p align="right">(<a href="#top">back to top</a>)</p>
 <!-- USAGE EXAMPLES -->
 ## Usage
 
