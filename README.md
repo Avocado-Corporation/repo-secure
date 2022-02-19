@@ -56,7 +56,11 @@ This project allows for some basic Security Best practices when a repository is 
 The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
 ## Useful commands
-
+* npm
+  ```sh
+  npm install typescript aws-cdk -g
+  ```
+  
 - `npm run build` compile typescript to js
 - `npm run watch` watch for changes and compile
 - `npm run test` perform the jest unit tests
@@ -91,33 +95,28 @@ Here are some basic steps to get you started:
  8. Generate and save a private key
  9. Install the App in the Organization.
 
+### Environment Variables
 
+The application uses several environment variables:
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest typescript typescript -g
-  ```
+ ```yaml
+   AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}} #For Deployment to AWS
+   AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}} #For Deployment to AWS
+   GH_APP_ID: ${{secrets.GH_APP_ID}} #To reference in the serverless funtion. Provided by GitHub as part of the App Installation
+   GH_REPOSECURE_PK: ${{secrets.GH_REPOSECURE_PK}} #To reference in the serverless funtion. Provided by GitHub as part of the App Installation.
+   GH_REPOSECURE_WEBHOOK: ${{secrets.GH_REPOSECURE_WEBHOOK}} #To reference in the serverless funtion. Provided by GitHub as part of the App Installation
+   CLIENT_ID: ${{secrets.CLIENT_ID}} #To reference in the serverless funtion. Provided by GitHub as part of the App Installation
+   CLIENT_SECRET: ${{secrets.CLIENT_SECRET}} #To reference in the serverless funtion. Provided by GitHub as part of the App Installation
+   INSTALLATION_ID: ${{secrets.INSTALLATION_ID}} #To reference in the serverless funtion. Provided by GitHub as part of the App Installation
+   REPO_SECURE_PAT: ${{secrets.REPO_SECURE_PAT}} #Developer PAT used to add security alerts and automate fixes. Use a generic user.
+```
+They should be added in the following areas of the code:
 
-### Installation
+ - [GitHub Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) - safely store secrets in your repo for use by your Actions.
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone git@github.com:Avocado-Corporation/repo-secure.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
+ - [Deployment Pipeline](https://github.com/Avocado-Corporation/repo-secure/blob/main/.github/workflows/deploy-main.yml#L62) - Saved and read from [GitHub Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets)
+  
+ - [Infrastructure as Code (CDK)](https://github.com/Avocado-Corporation/repo-secure/blob/main/cdk/lib/repo-secure-stack.ts#L15) - Set as environment variables for the Lambda function(s).
 
 <!-- USAGE EXAMPLES -->
 ## Usage
@@ -132,10 +131,14 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 <!-- ROADMAP -->
 ## Roadmap
+This is intended to provide a baseline for building a full solution. Some suggested features:
 
 - [ ] Azure Support
 - [ ] GCP Support
 - [ ] Add GitHub Events
+- [ ] Unit & End to End testing
+- [ ] WAF
+- [ ] Add Metrics using your preferred solution
 
 See the [open issues](https://github.com/Avocado-Corporation/repo-secure/issues) for a full list of proposed features (and known issues).
 
@@ -173,7 +176,7 @@ Distributed under the MIT License.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@rud750](https://twitter.com/rudy750) - sarmiento.rudy@gmail.com
+[@rud750](https://twitter.com/rudy750) - sarmiento.rudy@gmail.com
 
 Project Link: [https://github.com/Avocado-Corporation/repo-secure](https://github.com/Avocado-Corporation/repo-secure)
 
@@ -184,8 +187,8 @@ Project Link: [https://github.com/Avocado-Corporation/repo-secure](https://githu
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* [Thanks for the Template!](https://github.com/othneildrew/Best-README-Template)
-* [Make Great Diagrams](https://excalidraw.com/)
+* [Thanks for the README Template!](https://github.com/othneildrew/Best-README-Template)
+* [Great Diagram Tool](https://excalidraw.com/)
 * [Presentation made wit Reveal.js](https://revealjs.com/)
 * [Cool Bouncing Octocat](https://codepen.io/deren2525/pen/jJmOQa)
 
