@@ -42,8 +42,9 @@ This project allows for some basic Security Best practices when a repository is 
 
 * [node.js](https://nodejs.dev/)
 * [AWS](https://aws.amazon.com/)
-* [GitHub Apps](https://docs.github.com/en/developers/apps)
 * [AWS CDK](https://aws.amazon.com/cdk/)
+* [GitHub Apps](https://docs.github.com/en/developers/apps)
+* [Octokit](https://github.com/octokit)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -64,12 +65,38 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 - `cdk synth` emits the synthesized CloudFormation template
 
 
-### Prerequisites
+## Prerequisites
+
+### GitHub App
+
+This project relies on a [GitHub App](https://docs.github.com/en/developers/apps). GitHub Apps are owned by an organization and allow for subscribing to events and taking actions using the [GitHub API](https://docs.github.com/en/rest) against your organization without the need for a specific user.
+
+For more information on using GitHub Apps and how to set one up see the [Docs](https://docs.github.com/en/developers/apps/building-github-apps/creating-a-github-app). 
+Here are some basic steps to get you started:
+
+ 1. Go to the oranization settings and select the 'Developer Settings' tab.
+ 2. Choose GitHub Apps and click "New GitHub App".
+ 3. Type the app name, webhook url and webhook secret.
+ 4. The following permissions will be needed:
+    - Repository Permissions:
+      - Administration: read & write
+      - Contents: read & write
+      - Issues: read & write
+      - Metadata: read only (required)
+    - Organization Permissions:
+      - Events: Read-only
+ 5. Subscribe to "Repository" events
+ 6. Keep the "Only on this account" setting.
+ 7. Click Create GitHub App
+ 8. Generate and save a private key
+ 9. Install the App in the Organization.
+
+
 
 This is an example of how to list things you need to use the software and how to install them.
 * npm
   ```sh
-  npm install npm@latest -g
+  npm install npm@latest typescript typescript -g
   ```
 
 ### Installation
