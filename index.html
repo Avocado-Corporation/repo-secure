@@ -7,7 +7,25 @@
   <body>
     <div class="reveal">
       <div class="slides">
-        <section><h3>Securing GitHub Repositories at Scale</h3></section>
+        <section><h3>Secure GitHub Repositories at Scale</h3></section>
+        <section>
+          <ul>
+            <h3 style="text-align: center">GitHub Apps</h3>
+            <p style="text-align: center">
+              Introducing - Repo Security ...
+              <img
+                style="
+                  margin: 0;
+                  background: none;
+                  border: none;
+                  box-shadow: none;
+                  height: 190px;
+                "
+                src="img/GitHubApp.png"
+              />
+            </p>
+          </ul>
+        </section>
         <section>
           <img
             style="margin: 0; background: none; border: none; box-shadow: none"
@@ -15,20 +33,20 @@
           />
         </section>
         <section>
-          <ul>
-            <h3 style="text-align: center">GitHub Apps</h3>
-            <p>Introducing - Repo Security ...</p>
-          </ul>
-        </section>
-        <section>
           <h3 style="text-align: center">OctoKit & the GitHub API</h3>
-          <pre><code data-trim data-noescape>
+           <p>
+            <img
+            height="190px"
+            style="margin: 0; background: none; border: none; box-shadow: none"
+            src="img/octokit.png"
+          />
+            <pre><code data-trim data-noescape>
             (def lazy-fib
               (concat
                [0 1]
                ((fn rfib [a b]
                     (lazy-cons (+ a b) (rfib b (+ a b)))) 0 1)))
-              </code></pre>
+              </code></pre></p>
         </section>
         <section>
           <h3 style="text-align: center">Security Best Practices</h3>
@@ -55,13 +73,33 @@
           <p>Private Beta for protected pushes</p>
         </section>
         <section>
-          <p>Next Steps</p>
+          <h3>Next Steps</h3>
+          <img
+          style="
+            margin: 0;
+            background: none;
+            border: none;
+            box-shadow: none;
+            height: 100px;
+          "
+          src="img/pr.png"
+        />
         </section>
         <section>
-          <p>Demo 😥</p>
+          <h4>Demo 😥</h4>
         </section>
         <section>
-          <p>Innersource</p>
+          <h3>Innersource</h3>
+         
+            <p>Build a collaborative software development culture</p>
+            <p>
+          <a style="font-size: smaller;" href="https://resources.github.com/whitepapers/introduction-to-innersource/" target="_blank">
+            GitHub Whitepaper
+            </a></p>
+            <p>
+            <a style="font-size: smaller;" href="https://resources.github.com/tag/innersource/" target="_blank">
+              More Information
+            </a></p>
         </section>
         <section>
           <p>Questions 🤔</p>
