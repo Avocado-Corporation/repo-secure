@@ -11,14 +11,60 @@
         <section>
           <img
             style="margin: 0; background: none; border: none; box-shadow: none"
-            src="architecture.png"
+            src="img/architecture.png"
           />
         </section>
         <section>
           <ul>
-            <li>1</li>
-            <li>2</li>
+            <h3 style="text-align: center">GitHub Apps</h3>
+            <p>Introducing - Repo Security ...</p>
           </ul>
+        </section>
+        <section>
+          <h3 style="text-align: center">OctoKit & the GitHub API</h3>
+          <pre><code data-trim data-noescape>
+            (def lazy-fib
+              (concat
+               [0 1]
+               ((fn rfib [a b]
+                    (lazy-cons (+ a b) (rfib b (+ a b)))) 0 1)))
+              </code></pre>
+        </section>
+        <section>
+          <h3 style="text-align: center">Security Best Practices</h3>
+          <ul>
+            <li>README</li>
+            <li>.gitignore</li>
+            <li>Security Policy</li>
+            <li>CODEOWNERS</li>
+            <li>default branch protections</li>
+          </ul>
+        </section>
+        <section>
+          <p>CodeQL Analysis</p>
+        </section>
+        <section>
+          <h3 style="text-align: center">Organization Settings</h3>
+          <ul>
+            <li>Dependabot alerts</li>
+            <li>Dependabot security updates</li>
+          </ul>
+        </section>
+        <section>
+          <p>Secret Scanning and Advanced Security</p>
+          <p>Private Beta for protected pushes</p>
+        </section>
+        <section>
+          <p>Next Steps</p>
+        </section>
+        <section>
+          <p>Demo 😥</p>
+        </section>
+        <section>
+          <p>Innersource</p>
+        </section>
+        <section>
+          <p>Questions 🤔</p>
         </section>
       </div>
       <div class="shrink">
@@ -66,10 +112,13 @@
         </div>
       </div>
     </div>
-
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" />
+    <script src="plugin/highlight/highlight.js"></script>
     <script src="js/reveal.js"></script>
     <script>
-      Reveal.initialize();
+      Reveal.initialize({
+        plugins: [RevealHighlight]
+      });
     </script>
   </body>
 </html>

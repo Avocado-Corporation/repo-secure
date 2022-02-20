@@ -8,7 +8,7 @@
 }
 .hero {
   position: relative;
-  left: calc(40% - 727px);
+  left: calc(20% - 727px);
   width: 380px;
   height: 340px;
 }
