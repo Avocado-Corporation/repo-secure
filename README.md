@@ -114,16 +114,28 @@ They should be added in the following areas of the code:
 
  - [GitHub Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) - safely store secrets in your repo for use by your Actions.
 
- - [Deployment Pipeline](https://github.com/Avocado-Corporation/repo-secure/blob/main/.github/workflows/deploy-main.yml#L62) - Saved and read from [GitHub Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets)
+ - [Deployment Pipeline](https://github.com/Avocado-Corporation/repo-secure/blob/main/.github/workflows/deploy-main.yml#L62) - Read from [GitHub Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets)
   
  - [Infrastructure as Code (CDK)](https://github.com/Avocado-Corporation/repo-secure/blob/main/cdk/lib/repo-secure-stack.ts#L15) - Set as environment variables for the Lambda function(s).
 <p align="right">(<a href="#top">back to top</a>)</p>
 <!-- USAGE EXAMPLES -->
 ## Usage
 
+Repo Secure is intended to automate GitHub Repository security best practices according to [here](https://docs.microsoft.com/en-us/learn/modules/maintain-secure-repository-github/2-how-to-maintain-secure-repository) and [here](https://docs.github.com/en/code-security/getting-started/securing-your-repository).
+
+When a repository is created in the organization an event is sent via WebHook to the accompanying API. Using [OctoKit](https://github.com/octokit) and the [GitHub API](https://docs.github.com/en/rest) the following best practices are automatically applied to the repository:
+
+ - README.md template
+ - .gitignore template
+ - [SECURITY.md (Security Policy) added](https://docs.github.com/en/code-security/getting-started/adding-a-security-policy-to-your-repository)
+ - [CODEOWNERS file](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)
+ - Dependabot alerts are enabled
+ - Dependabot security updates are enabled
+ - default branch protections are enabled
+ 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+_For more examples, please refer to the [Presentation](https://avocado-corporation.github.io/repo-secure)_
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -176,7 +188,7 @@ Distributed under the MIT License.
 <!-- CONTACT -->
 ## Contact
 
-[@rud750](https://twitter.com/rudy750) - sarmiento.rudy@gmail.com
+Rudy Sarmiento - [@rud750](https://twitter.com/rudy750) - sarmiento.rudy@gmail.com
 
 Project Link: [https://github.com/Avocado-Corporation/repo-secure](https://github.com/Avocado-Corporation/repo-secure)
 
