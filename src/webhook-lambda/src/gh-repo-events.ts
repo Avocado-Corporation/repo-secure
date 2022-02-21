@@ -89,7 +89,14 @@ const RepoEvents = async (body: RepositoryEvent) => {
 
         await addCodeOwners(body);
         console.log('Added codeowners file.');
-        // this one must go first!
+        /* this one must go first!
+          You can also enable on the Organization settings for all repo's
+          kept here as an optional implementation if for any reason you do not want it enabled on all repos.
+
+          If you prefer to enable it as a organization setting comment/delete:
+          await addVulnerabilityAlerts
+          await addSecurity
+        */
         await addVulnerabilityAlerts(
           body.organization?.login || '',
           body.repository.name
