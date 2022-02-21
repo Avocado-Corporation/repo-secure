@@ -3,12 +3,12 @@
   -moz-transform: scale(0.5);
   -ms-transform: scale(0.5);
   transform: scale(0.5);
-  top: calc(60% - 1px);
+  top: calc(68% - 1px);
   position: relative;
 }
 .hero {
   position: relative;
-  left: calc(20% - 727px);
+  left: calc(2% - 727px);
   width: 380px;
   height: 340px;
 }

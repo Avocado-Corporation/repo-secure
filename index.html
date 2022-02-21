@@ -36,16 +36,22 @@
           <h3 style="text-align: center">OctoKit & the GitHub API</h3>
            <p>
             <img
-            height="190px"
+            height="150px"
             style="margin: 0; background: none; border: none; box-shadow: none"
             src="img/octokit.png"
           />
-            <pre><code data-trim data-noescape>
-            (def lazy-fib
-              (concat
-               [0 1]
-               ((fn rfib [a b]
-                    (lazy-cons (+ a b) (rfib b (+ a b)))) 0 1)))
+            <pre><code style="font-size: smaller;" data-trim data-noescape>
+              import { Octokit } from '@octokit/rest';
+              import { createAppAuth } from '@octokit/auth-app';
+
+              const octokit = new Octokit({
+                authStrategy: createAppAuth,
+                auth: {
+                  appId: process.env?.GH_APP_ID || '',
+                  privateKey: ghRepoSecurePK,
+                  installationId: process.env.INSTALLATION_ID
+                }
+              });
               </code></pre></p>
         </section>
         <section>
