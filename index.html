@@ -3,6 +3,20 @@
     <link rel="stylesheet" href="dist/reveal.css" />
     <link rel="stylesheet" href="dist/theme/black.css" />
     <link rel="stylesheet" href="css/octocat.css" />
+    <style>
+      .flexcontainer {
+        display: flex;
+        align-items: center;
+      }
+      @media (max-width: 320px) {
+        .flexcontainer {
+          display: block;
+        }
+      }
+      p{
+        font-size: smaller;
+      }
+    </style>
   </head>
   <body>
     <div class="reveal">
@@ -11,18 +25,23 @@
         <section>
           <ul>
             <h3 style="text-align: center">GitHub Apps</h3>
+            <div style="text-align: center;">
+            <img
+            style="
+              margin: 0;
+              background: none;
+              border: none;
+              box-shadow: none;
+              height: 190px;
+            "
+            src="img/GitHubApp.png"
+          />
+            </div>
+          
             <p style="text-align: center">
-              Introducing - Repo Security ...
-              <img
-                style="
-                  margin: 0;
-                  background: none;
-                  border: none;
-                  box-shadow: none;
-                  height: 190px;
-                "
-                src="img/GitHubApp.png"
-              />
+             
+             
+              Introducing... Repo Security
             </p>
           </ul>
         </section>
@@ -31,6 +50,42 @@
             style="margin: 0; background: none; border: none; box-shadow: none"
             src="img/architecture.png"
           />
+        </section>
+        <section>
+          <h3 style="text-align: center">Security Best Practices</h3>
+
+          <div class="flexcontainer">
+            <div>
+              <ul style="font-size: smaller;">
+                <li>README</li>
+                <li>CODEOWNERS</li>
+                <li>.gitignore</li>
+                <li>Security Policy</li>
+                <li>default branch protections</li>
+              </ul>
+            </div>
+            <div>
+              <img src="img/codeql.png" />
+            </div>
+          </div>
+          <!-- <ul>
+            <li>README</li>
+            <li>.gitignore</li>
+            <li>Security Policy</li>
+            <li>CODEOWNERS</li>
+            <li>default branch protections</li>
+          </ul>
+
+          <img
+          style="
+            margin: 0;
+            background: none;
+            border: none;
+            box-shadow: none;
+            height: 190px;
+          "
+          src="img/codeql.png"
+        /> -->
         </section>
         <section>
           <h3 style="text-align: center">OctoKit & the GitHub API</h3>
@@ -54,32 +109,72 @@
               });
               </code></pre></p>
         </section>
+        
         <section>
-          <h3 style="text-align: center">Security Best Practices</h3>
-          <ul>
-            <li>README</li>
-            <li>.gitignore</li>
-            <li>Security Policy</li>
-            <li>CODEOWNERS</li>
-            <li>default branch protections</li>
-          </ul>
-        </section>
-        <section>
-          <p>CodeQL Analysis</p>
+          <h3  style="text-align: center">CodeQL Analysis</h3>
+          <p style="font-size: smaller;">Discover vulnerabilities across a codebase</p>
+          <img
+          style="
+            margin: 0;
+            background: none;
+            border: none;
+            box-shadow: none;
+            height: 190px;
+          "
+          src="img/codeql.png"
+        />
         </section>
         <section>
           <h3 style="text-align: center">Organization Settings</h3>
-          <ul>
+          <div class="flexcontainer">
+            <div>
+              <ul style="font-size: smaller;">
+                <li>Dependabot alerts</li>
+                <li>Dependabot security updates</li>
+              </ul>
+            </div>
+            <div>
+              <img src="img/github-dependabot.png" />
+            </div>
+          </div>
+          <!-- <ul>
             <li>Dependabot alerts</li>
             <li>Dependabot security updates</li>
           </ul>
+          <img
+          style="
+            margin: 0;
+            background: none;
+            border: none;
+            box-shadow: none;
+            height: 190px;
+          "
+          src="img/github-dependabot.png"
+        /> -->
         </section>
         <section>
+          <h3>Recommendations <img
+            style="
+              margin: 0;
+              background: none;
+              border: none;
+              box-shadow: none;
+              height: 100px;
+            "
+            src="img/noun-recommendation-3761713.png"
+          /></h3>
           <p>Secret Scanning and Advanced Security</p>
           <p>Private Beta for protected pushes</p>
         </section>
         <section>
+          <h1>Demo 😱</h1>
+        </section>
+        <section>
           <h3>Next Steps</h3>
+          <p style="font-size: smaller;">
+            The software isn't finished until the last user signs out.<br/>
+            <span style="font-size: small">- Anonymous</span>
+          </p>
           <img
           style="
             margin: 0;
@@ -91,12 +186,19 @@
           src="img/pr.png"
         />
         </section>
-        <section>
-          <h4>Demo 😱</h4>
-        </section>
+        
         <section>
           <h3>Innersource</h3>
-         
+          <img
+          style="
+            margin: 0;
+            background: none;
+            border: none;
+            box-shadow: none;
+            height: 100px;
+          "
+          src="img/logo-big.png"
+        />
             <p>Build a collaborative software development culture</p>
             <p>
           <a style="font-size: smaller;" href="https://resources.github.com/whitepapers/introduction-to-innersource/" target="_blank">
