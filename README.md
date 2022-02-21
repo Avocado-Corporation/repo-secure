@@ -130,7 +130,7 @@ Repo Secure is intended to automate GitHub Repository security best practices ac
 
 When a repository is created in the organization an event is sent via WebHook to the accompanying API. Using [OctoKit](https://github.com/octokit) and the [GitHub API](https://docs.github.com/en/rest).
 
-_For more examples, please refer to the [Presentation](https://avocado-corporation.github.io/repo-secure)_
+_For more examples, please refer to the [Presentation](https://avocado-corporation.github.io/repo-secure) .pdf version available here_
 
 <!-- ROADMAP -->
 
