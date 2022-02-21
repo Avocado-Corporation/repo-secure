@@ -32,11 +32,17 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This project allows for some basic Security Best practices when a repository is created on Github. It uses a [GitHub App](https://docs.github.com/en/developers/apps) to emit events to a WebHook. Project is built using AWS CDK to automatically build the infrastructure (Azure and GCP coming soon).
+This project allows for some basic security best practices when a repository is created on Github. It uses a [GitHub App](https://docs.github.com/en/developers/apps) to emit events to a WebHook. Project is built using AWS CDK to automatically build the infrastructure (Azure and GCP coming soon).
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+Repo Secure adds the automatically adds the following secure repository [best practices](https://docs.github.com/en/code-security/getting-started/securing-your-repository):
 
-
+ - README.md template
+ - .gitignore template
+ - [SECURITY.md (Security Policy) added](https://docs.github.com/en/code-security/getting-started/adding-a-security-policy-to-your-repository)
+ - [CODEOWNERS file](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)
+ - Dependabot alerts are enabled
+ - Dependabot security updates are enabled
+ - default branch protections are enabled
 
 ### Built With
 
@@ -45,8 +51,6 @@ This project allows for some basic Security Best practices when a repository is 
 * [AWS CDK](https://aws.amazon.com/cdk/)
 * [GitHub Apps](https://docs.github.com/en/developers/apps)
 * [Octokit](https://github.com/octokit)
-
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
@@ -68,7 +72,6 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 - `cdk diff` compare deployed stack with current state
 - `cdk synth` emits the synthesized CloudFormation template
 
-<p align="right">(<a href="#top">back to top</a>)</p>
 ## Prerequisites
 
 ### GitHub App
@@ -117,44 +120,29 @@ They should be added in the following areas of the code:
  - [Deployment Pipeline](https://github.com/Avocado-Corporation/repo-secure/blob/main/.github/workflows/deploy-main.yml#L62) - Read from [GitHub Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets)
   
  - [Infrastructure as Code (CDK)](https://github.com/Avocado-Corporation/repo-secure/blob/main/cdk/lib/repo-secure-stack.ts#L15) - Set as environment variables for the Lambda function(s).
-<p align="right">(<a href="#top">back to top</a>)</p>
+
 <!-- USAGE EXAMPLES -->
 ## Usage
 
 Repo Secure is intended to automate GitHub Repository security best practices according to [here](https://docs.microsoft.com/en-us/learn/modules/maintain-secure-repository-github/2-how-to-maintain-secure-repository) and [here](https://docs.github.com/en/code-security/getting-started/securing-your-repository).
 
-When a repository is created in the organization an event is sent via WebHook to the accompanying API. Using [OctoKit](https://github.com/octokit) and the [GitHub API](https://docs.github.com/en/rest) the following best practices are automatically applied to the repository:
-
- - README.md template
- - .gitignore template
- - [SECURITY.md (Security Policy) added](https://docs.github.com/en/code-security/getting-started/adding-a-security-policy-to-your-repository)
- - [CODEOWNERS file](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)
- - Dependabot alerts are enabled
- - Dependabot security updates are enabled
- - default branch protections are enabled
+When a repository is created in the organization an event is sent via WebHook to the accompanying API. Using [OctoKit](https://github.com/octokit) and the [GitHub API](https://docs.github.com/en/rest).
  
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
 _For more examples, please refer to the [Presentation](https://avocado-corporation.github.io/repo-secure)_
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
 
 
 <!-- ROADMAP -->
 ## Roadmap
 This is intended to provide a baseline for building a full solution. Some suggested features:
 
-- [ ] Azure Support
-- [ ] GCP Support
-- [ ] Add GitHub Events
-- [ ] Unit & End to End testing
-- [ ] WAF
-- [ ] Add Metrics using your preferred solution
+- [Azure Support](https://github.com/Avocado-Corporation/repo-secure/issues/2)
+- [GCP Support](https://github.com/Avocado-Corporation/repo-secure/issues/3)
+- [Additional GitHub Events](https://github.com/Avocado-Corporation/repo-secure/issues/5)
+- [Unit & End to End testing](https://github.com/Avocado-Corporation/repo-secure/issues/6)
+- [WAF](https://github.com/Avocado-Corporation/repo-secure/issues/7)
+- [Add Metrics using your preferred solution](https://github.com/Avocado-Corporation/repo-secure/issues/8)
 
 See the [open issues](https://github.com/Avocado-Corporation/repo-secure/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
@@ -172,17 +160,12 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-<p align="right">(<a href="#top">back to top</a>)</p>
-
 
 
 <!-- LICENSE -->
 ## License
 
 Distributed under the MIT License.
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
 
 
 <!-- CONTACT -->
@@ -191,8 +174,6 @@ Distributed under the MIT License.
 Rudy Sarmiento - [@rud750](https://twitter.com/rudy750) - sarmiento.rudy@gmail.com
 
 Project Link: [https://github.com/Avocado-Corporation/repo-secure](https://github.com/Avocado-Corporation/repo-secure)
-
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
@@ -203,9 +184,6 @@ Project Link: [https://github.com/Avocado-Corporation/repo-secure](https://githu
 * [Great Diagram Tool](https://excalidraw.com/)
 * [Presentation made wit Reveal.js](https://revealjs.com/)
 * [Cool Bouncing Octocat](https://codepen.io/deren2525/pen/jJmOQa)
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
