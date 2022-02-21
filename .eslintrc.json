@@ -4,7 +4,6 @@
     "es2021": true
   },
   "extends": [
-    "airbnb-base",
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
@@ -38,7 +37,6 @@
   "settings": {
     "import/resolver": {
       "typescript": {},
-      "javascript": {},
       "node": {
         "extensions": [".js", ".jsx", "*.ts", ".tsx", ".ts", ".d.ts"],
         "moduleDirectory": ["node_modules", "src/node_modules/", "src/"]

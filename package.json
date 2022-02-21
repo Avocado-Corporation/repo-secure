@@ -9,7 +9,7 @@
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk",
-    "lint": "eslint src --ext .js,.ts",
+    "lint": "eslint src --ext .ts",
     "prettier-format": "prettier --config .prettierrc './*' --write"
   },
   "devDependencies": {
