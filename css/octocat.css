@@ -3,7 +3,7 @@
   -moz-transform: scale(0.5);
   -ms-transform: scale(0.5);
   transform: scale(0.5);
-  top: calc(68% - 1px);
+  top: calc(60% - 1px);
   position: relative;
 }
 .hero {
