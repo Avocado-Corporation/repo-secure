@@ -1,6 +1,6 @@
 [![CodeQL](https://github.com/Avocado-Corporation/repo-secure/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Avocado-Corporation/repo-secure/actions/workflows/codeql-analysis.yml) [![Main Deploy](https://github.com/Avocado-Corporation/repo-secure/actions/workflows/deploy-main.yml/badge.svg)](https://github.com/Avocado-Corporation/repo-secure/actions/workflows/deploy-main.yml) [![GitHub issues](https://img.shields.io/github/issues/Avocado-Corporation/repo-secure)](https://github.com/Avocado-Corporation/repo-secure/issues)
 
-# Repo Secure
+# Repo Secure FAKE CHANGE TO DEMONSTRATE ANALYZE STEP
 
 <!-- TABLE OF CONTENTS -->
 <details>
