@@ -58,12 +58,26 @@ Repo Secure adds the automatically adds the following secure repository [best pr
 
 The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
+This solution requires [nodejs](https://nodejs.org/en/download/). After installation is complete download and install [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) the package manager for nodejs.
+
 ## Useful commands
 
 - npm
   ```sh
   npm install typescript aws-cdk -g
   ```
+  ```sh
+  cd [path to project]
+  npm install 
+  ```
+Once all packages are installed the infrastructure can be deployed on AWS. This app requires AWS to run, it is not intended to be run on your local environment. There is a deployment workflow included that will deploy once the 
+
+```
+AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}} #For Deployment to AWS
+AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}} #For Deployment to AWS
+```
+are set (see Prerequisites in the next section).
+
 
 * `npm run build` compile typescript to js
 * `npm run watch` watch for changes and compile
